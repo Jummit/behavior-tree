@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/behaviour_tree/behaviour_tree_graph/behaviour_node/behaviour_node.gd" type="Script" id=1]
+
+[node name="BehaviourNode" type="GraphNode"]
+margin_right = 90.0
+margin_bottom = 79.0
+custom_constants/separation = 5
+show_close = true
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color( 1, 1, 1, 1 )
+slot/0/right_enabled = false
+slot/0/right_type = 0
+slot/0/right_color = Color( 1, 1, 1, 1 )
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color( 1, 1, 1, 1 )
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color( 1, 1, 1, 1 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutputButtons" type="HBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 24.0
+margin_right = 74.0
+margin_bottom = 44.0
+alignment = 2
+
+[node name="AddOutputButton" type="Button" parent="OutputButtons"]
+margin_left = 17.0
+margin_right = 37.0
+margin_bottom = 20.0
+text = "+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemoveOutputButton" type="Button" parent="OutputButtons"]
+margin_left = 41.0
+margin_right = 58.0
+margin_bottom = 20.0
+text = "-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PropertyEdit" type="LineEdit" parent="."]
+margin_left = 16.0
+margin_top = 49.0
+margin_right = 74.0
+margin_bottom = 73.0
+
+[connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]
+[connection signal="pressed" from="OutputButtons/RemoveOutputButton" to="." method="_on_RemoveOutputButton_pressed"]

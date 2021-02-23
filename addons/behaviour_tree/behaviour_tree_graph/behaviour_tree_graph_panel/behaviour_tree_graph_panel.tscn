@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/behaviour_tree/behaviour_tree_graph/behaviour_tree_graph_panel/behaviour_tree_graph_panel.gd" type="Script" id=1]
+
+[node name="BehaviourTreeGraphPanel" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 280 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBar" type="HBoxContainer" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="VBoxContainer/TopBar"]
+margin_right = 32.0
+margin_bottom = 14.0
+text = "Path:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NavigationButtonsContainer" type="HBoxContainer" parent="VBoxContainer/TopBar"]
+margin_left = 36.0
+margin_right = 1024.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphEdit" type="GraphEdit" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 600.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+right_disconnects = true
+scroll_offset = Vector2( -5, -289 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="connection_from_empty" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_connection_from_empty"]
+[connection signal="connection_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_connection_request"]
+[connection signal="connection_to_empty" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_connection_to_empty"]
+[connection signal="copy_nodes_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_copy_nodes_request"]
+[connection signal="delete_nodes_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_delete_nodes_request"]
+[connection signal="disconnection_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_disconnection_request"]
+[connection signal="duplicate_nodes_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_duplicate_nodes_request"]
+[connection signal="paste_nodes_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_paste_nodes_request"]
+[connection signal="popup_request" from="VBoxContainer/GraphEdit" to="." method="_on_GraphEdit_popup_request"]
