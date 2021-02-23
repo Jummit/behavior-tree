@@ -46,6 +46,10 @@ const NODES := [
 		name = "Succeeder",
 		type = NodeType.DECORATOR,
 	},
+	{
+		name = "Failer",
+		type = NodeType.DECORATOR,
+	},
 ]
 
 static func get_type_data(type_name : String) -> Dictionary:
@@ -119,6 +123,13 @@ func tick_succeeder(subject : Node, data : Dictionary) -> int:
 	if result is GDScriptFunctionState:
 		yield(result, "completed")
 	return OK
+
+
+func tick_failer(subject : Node, data : Dictionary) -> int:
+	var result = tick(data.children.front(), subject)
+	if result is GDScriptFunctionState:
+		yield(result, "completed")
+	return FAILED
 
 
 func tick(node : Dictionary, subject : Node) -> int:
