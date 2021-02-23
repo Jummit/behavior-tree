@@ -9,7 +9,7 @@ metadata={
 
 [deps]
 
-source_file="res://addons/behaviour_tree/behaviour_tree_player/icon.svg"
+source_file="res://addons/behavior_tree/behavior_tree_player/icon.svg"
 dest_files=[ "res://.import/icon.svg-edec4657000f53b02585188c68e80d69.stex" ]
 
 [params]

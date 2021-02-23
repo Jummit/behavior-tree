@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/behaviour_tree/behaviour_tree_graph/behaviour_node/behaviour_node.gd" type="Script" id=1]
+[ext_resource path="res://addons/behavior_tree/behavior_tree_graph/behavior_node/behavior_node.gd" type="Script" id=1]
 
-[node name="BehaviourNode" type="GraphNode"]
+[node name="BehaviorNode" type="GraphNode"]
 margin_right = 90.0
 margin_bottom = 79.0
 custom_constants/separation = 5

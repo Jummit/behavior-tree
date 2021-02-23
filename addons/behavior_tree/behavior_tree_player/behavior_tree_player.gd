@@ -8,20 +8,20 @@ enum ProcessMode {
 }
 
 export var root_node := NodePath("../")
-export var behaviour_tree : Resource
+export var behavior_tree : Resource
 export var active := true setget set_active
 export(ProcessMode) var process_mode := ProcessMode.IDLE setget set_process_mode
 
 onready var subject := get_node(root_node)
 
-var Nodes = preload("res://addons/behaviour_tree/nodes.gd").new()
+var Nodes = preload("res://addons/behavior_tree/nodes.gd").new()
 
 func _ready() -> void:
 	set_active(active)
 
 
 func tick() -> void:
-	for node in behaviour_tree.nodes:
+	for node in behavior_tree.nodes:
 		Nodes.tick(node, subject)
 
 

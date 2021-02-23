@@ -4,9 +4,9 @@ extends GraphNode
 var data : Dictionary
 var outputs := 2
 
-const NODES = preload("res://addons/behaviour_tree/nodes.gd").NODES
-const NodeType = preload("res://addons/behaviour_tree/nodes.gd").NodeType
-const Nodes = preload("res://addons/behaviour_tree/nodes.gd")
+const NODES = preload("res://addons/behavior_tree/nodes.gd").NODES
+const NodeType = preload("res://addons/behavior_tree/nodes.gd").NodeType
+const Nodes = preload("res://addons/behavior_tree/nodes.gd")
 
 onready var property_edit : LineEdit = $PropertyEdit
 onready var output_buttons : HBoxContainer = $OutputButtons

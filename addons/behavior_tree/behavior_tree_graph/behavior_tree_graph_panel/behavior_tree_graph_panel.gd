@@ -1,7 +1,7 @@
 tool
 extends Control
 
-var behaviour_tree : BehaviourTree setget set_behaviour_tree
+var behavior_tree : BehaviorTree setget set_behavior_tree
 var create_node_dialog : ConfirmationDialog
 var to_slot := -1
 var to_node : String
@@ -10,8 +10,8 @@ var from_node : String
 
 var copied := []
 
-const BehaviourTree = preload("res://addons/behaviour_tree/behaviour_tree.gd")
-const BehaviourNode = preload("res://addons/behaviour_tree/behaviour_tree_graph/behaviour_node/behaviour_node.tscn")
+const BehaviorTree = preload("res://addons/behavior_tree/behavior_tree.gd")
+const BehaviorNode = preload("res://addons/behavior_tree/behavior_tree_graph/behavior_node/behavior_node.tscn")
 
 onready var graph_edit : GraphEdit = $VBoxContainer/GraphEdit
 
@@ -24,23 +24,23 @@ func _ready() -> void:
 	graph_edit.get_zoom_hbox().move_child(create_node_button, 0)
 	
 	create_node_dialog.connect("node_selected", self,
-			"_on_CreateBehaviourNodeDialog_node_selected")
-	create_node_dialog.connect("hide", self, "_on_CreateBehaviourNodeDialog_hide")
+			"_on_CreateBehaviorNodeDialog_node_selected")
+	create_node_dialog.connect("hide", self, "_on_CreateBehaviorNodeDialog_hide")
 
 
-func set_behaviour_tree(to):
-	behaviour_tree = to
+func set_behavior_tree(to):
+	behavior_tree = to
 	for node in graph_edit.get_children():
 		if node is GraphNode:
 			node.queue_free()
 	var store := {}
-	add_nodes(behaviour_tree.nodes, store)
-	connect_nodes(behaviour_tree.nodes, store)
+	add_nodes(behavior_tree.nodes, store)
+	connect_nodes(behavior_tree.nodes, store)
 
 
 func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
 	for node in nodes:
-		var new_node := BehaviourNode.instance()
+		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
 		new_node.init(node)
 		new_node.selected = select
@@ -86,7 +86,7 @@ func _on_GraphEdit_connection_to_empty(from : String, _from_slot : int,
 	show_create_dialog(true)
 
 
-func _on_CreateBehaviourNodeDialog_hide():
+func _on_CreateBehaviorNodeDialog_hide():
 	from_node = ""
 	from_slot = 1
 	to_node = ""
@@ -138,8 +138,8 @@ func show_create_dialog(at_mouse := false) -> void:
 		create_node_dialog.rect_position = get_viewport().get_mouse_position()
 
 
-func _on_CreateBehaviourNodeDialog_node_selected(type : String) -> void:
-	var new_node : GraphNode = BehaviourNode.instance()
+func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
+	var new_node : GraphNode = BehaviorNode.instance()
 	graph_edit.add_child(new_node)
 	new_node.init({
 		type = type,

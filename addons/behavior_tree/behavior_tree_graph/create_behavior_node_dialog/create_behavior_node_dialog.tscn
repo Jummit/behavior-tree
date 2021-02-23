@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/behaviour_tree/behaviour_tree_graph/create_behaviour_node_dialog/create_behaviour_node_dialog.gd" type="Script" id=1]
+[ext_resource path="res://addons/behavior_tree/behavior_tree_graph/create_behavior_node_dialog/create_behavior_node_dialog.gd" type="Script" id=1]
 
-[node name="CreateBehaviourNodeDialog" type="ConfirmationDialog"]
+[node name="CreateBehaviorNodeDialog" type="ConfirmationDialog"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -12,7 +12,7 @@ margin_top = -219.0
 margin_right = 100.0
 margin_bottom = 219.0
 rect_min_size = Vector2( 200, 240 )
-window_title = "Create Behaviour Node"
+window_title = "Create Behavior Node"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false

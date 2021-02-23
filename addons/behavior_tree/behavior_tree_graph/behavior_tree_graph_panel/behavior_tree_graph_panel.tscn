@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/behaviour_tree/behaviour_tree_graph/behaviour_tree_graph_panel/behaviour_tree_graph_panel.gd" type="Script" id=1]
+[ext_resource path="res://addons/behavior_tree/behavior_tree_graph/behavior_tree_graph_panel/behavior_tree_graph_panel.gd" type="Script" id=1]
 
-[node name="BehaviourTreeGraphPanel" type="Control"]
+[node name="BehaviorTreeGraphPanel" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 0, 280 )

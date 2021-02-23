@@ -3,8 +3,8 @@ extends ConfirmationDialog
 
 signal node_selected(node)
 
-const NODES = preload("res://addons/behaviour_tree/nodes.gd").NODES
-const NodeType = preload("res://addons/behaviour_tree/nodes.gd").NodeType
+const NODES = preload("res://addons/behavior_tree/nodes.gd").NODES
+const NodeType = preload("res://addons/behavior_tree/nodes.gd").NodeType
 
 onready var search_edit : LineEdit = $VBoxContainer/SearchEdit
 onready var node_list : Tree = $VBoxContainer/NodeList
