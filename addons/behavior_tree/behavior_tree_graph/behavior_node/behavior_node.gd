@@ -2,7 +2,7 @@ tool
 extends GraphNode
 
 var data : Dictionary
-var outputs := 2
+var outputs : int
 
 const NODES = preload("res://addons/behavior_tree/nodes.gd").NODES
 const NodeType = preload("res://addons/behavior_tree/nodes.gd").NodeType
@@ -23,7 +23,7 @@ func init(_data : Dictionary) -> void:
 	else:
 		property_edit.text = data.get("property", "")
 	offset = data.position
-	outputs = data.get("outputs", 1)
+	outputs = data.get("outputs", 2)
 	if type_data.type == NodeType.COMPOSITE:
 		for output_num in range(outputs, 0, -1):
 			var label := Label.new()
@@ -67,3 +67,7 @@ func _on_RemoveOutputButton_pressed() -> void:
 	outputs -= 1
 	get_child(outputs).queue_free()
 	remove_output_button.disabled = outputs == 1
+
+
+func _on_close_request() -> void:
+	queue_free()

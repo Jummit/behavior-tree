@@ -23,7 +23,8 @@ func update_list(search_term := "") -> void:
 	node_list.clear()
 	var root := node_list.create_item()
 	var roots := {
-		NodeType.ROOT: root
+		NodeType.ROOT: root,
+		NodeType.GROUP: root,
 	}
 	var is_first := true
 	for node in NODES:

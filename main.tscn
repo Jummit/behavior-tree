@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://construction_site/construction_site.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resource/resource.tscn" type="PackedScene" id=3]
+[ext_resource path="res://worker/worker.tscn" type="PackedScene" id=4]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="YSort"]
 script = ExtResource( 1 )
+
+[node name="Resource4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 536, 342 )
+
+[node name="Resource3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 221, 450 )
+
+[node name="Resource5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 838, 200 )
+
+[node name="Resource6" parent="." instance=ExtResource( 3 )]
+position = Vector2( 948, 101 )
+
+[node name="Resource" parent="." instance=ExtResource( 3 )]
+position = Vector2( 74, 211 )
+
+[node name="Resource7" parent="." instance=ExtResource( 3 )]
+position = Vector2( 185, 487 )
+
+[node name="Resource2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 777, 106 )
+
+[node name="Resource8" parent="." instance=ExtResource( 3 )]
+position = Vector2( 139, 458 )
+
+[node name="ConstructionSite" parent="." instance=ExtResource( 2 )]
+position = Vector2( 334, 153 )
+
+[node name="Resource9" parent="." instance=ExtResource( 3 )]
+position = Vector2( 484, 400 )
+
+[node name="Resource10" parent="." instance=ExtResource( 3 )]
+position = Vector2( 916, 482 )
+
+[node name="Resource11" parent="." instance=ExtResource( 3 )]
+position = Vector2( 945, 421 )
+
+[node name="Worker" parent="." instance=ExtResource( 4 )]
+position = Vector2( 767, 422 )

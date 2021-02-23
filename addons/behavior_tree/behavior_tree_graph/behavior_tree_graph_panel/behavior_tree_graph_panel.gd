@@ -33,6 +33,7 @@ func set_behavior_tree(to):
 	for node in graph_edit.get_children():
 		if node is GraphNode:
 			node.queue_free()
+	graph_edit.clear_connections()
 	var store := {}
 	add_nodes(behavior_tree.nodes, store)
 	connect_nodes(behavior_tree.nodes, store)
@@ -97,6 +98,7 @@ func _on_GraphEdit_delete_nodes_request() -> void:
 	for node in graph_edit.get_children():
 		if node is GraphNode and node.selected:
 			node.queue_free()
+	graph_edit.update()
 
 
 func _on_GraphEdit_duplicate_nodes_request() -> void:
@@ -176,7 +178,9 @@ func save(nodes := graph_edit.get_children()) -> Array:
 			data[node.name] = node.to_dictionary()
 	for connection in graph_edit.get_connection_list():
 		if connection.from in data and connection.to in data:
-			data[connection.from].children.append(data[connection.to])
+			data[connection.from].children.resize(connection.from_port + 1)
+			data[connection.from].children[connection.from_port] =\
+					data[connection.to]
 			owned[connection.to] = true
 	var root_nodes := []
 	for node_name in data:
