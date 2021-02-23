@@ -34,11 +34,26 @@ const NODES := [
 		has_property = true,
 	},
 	{
+		name = "Expression",
+		type = NodeType.LEAF,
+		has_property = true,
+	},
+	{
 		name = "Inverter",
 		type = NodeType.DECORATOR,
 	},
 	{
 		name = "Repeater",
+		type = NodeType.DECORATOR,
+		has_property = true,
+	},
+	{
+		name = "Repeat Until Failed",
+		type = NodeType.DECORATOR,
+		has_property = true,
+	},
+	{
+		name = "Repeat Until Succeeded",
 		type = NodeType.DECORATOR,
 		has_property = true,
 	},
@@ -96,6 +111,13 @@ func tick_function(subject : Node, data : Dictionary) -> int:
 	return subject.call(data.property)
 
 
+func tick_expression(subject : Node, data : Dictionary) -> int:
+	var expression := Expression.new()
+	expression.parse(data.property)
+	expression.execute([], subject)
+	return OK
+
+
 func tick_inverter(subject : Node, data : Dictionary) -> int:
 	var result = tick(data.children.front(), subject)
 	if result is GDScriptFunctionState:
@@ -115,6 +137,26 @@ func tick_repeater(subject : Node, data : Dictionary) -> int:
 			yield(result, "completed")
 		if result == FAILED:
 			return FAILED
+	return OK
+
+
+func tick_repeat_until_failed(subject : Node, data : Dictionary) -> int:
+	while true:
+		var result = tick(data.children.front(), subject)
+		if result is GDScriptFunctionState:
+			yield(result, "completed")
+		if result == FAILED:
+			return OK
+	return OK
+
+
+func tick_repeat_until_succeeded(subject : Node, data : Dictionary) -> int:
+	while true:
+		var result = tick(data.children.front(), subject)
+		if result is GDScriptFunctionState:
+			yield(result, "completed")
+		if result == OK:
+			return OK
 	return OK
 
 
