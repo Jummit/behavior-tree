@@ -133,4 +133,4 @@ func tick_failer(subject : Node, data : Dictionary) -> int:
 
 
 func tick(node : Dictionary, subject : Node) -> int:
-	return call("tick_" + node.type.to_lower(), subject, node)
+	return call("tick_" + node.type.to_lower().replace(" ", "_"), subject, node)
