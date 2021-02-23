@@ -83,7 +83,9 @@ func tick_sequence(subject : Node, data : Dictionary) -> int:
 
 
 func tick_condition(subject : Node, data : Dictionary) -> int:
-	return OK if subject.call(data.property) else FAILED
+	var expression := Expression.new()
+	expression.parse(data.property)
+	return OK if expression.execute([], subject) else FAILED
 
 
 func tick_function(subject : Node, data : Dictionary) -> int:
