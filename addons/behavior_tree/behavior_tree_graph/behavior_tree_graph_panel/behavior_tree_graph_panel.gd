@@ -2,10 +2,11 @@ tool
 extends Control
 
 var behavior_tree : BehaviorTree setget set_behavior_tree
+var graph : String setget set_graph
 var create_node_dialog : ConfirmationDialog
-var to_slot := -1
+var to_slot : int
 var to_node : String
-var from_slot := -1
+var from_slot : int
 var from_node : String
 
 var copied := []
@@ -14,6 +15,7 @@ const BehaviorTree = preload("res://addons/behavior_tree/behavior_tree.gd")
 const BehaviorNode = preload("res://addons/behavior_tree/behavior_tree_graph/behavior_node/behavior_node.tscn")
 
 onready var graph_edit : GraphEdit = $VBoxContainer/GraphEdit
+onready var navigation_buttons : HBoxContainer = $VBoxContainer/TopBar/NavigationButtonsContainer
 
 func _ready() -> void:
 	var create_node_button := Button.new()
@@ -30,23 +32,66 @@ func _ready() -> void:
 
 func set_behavior_tree(to):
 	behavior_tree = to
+	clear_navigation_buttons()
+	add_navigation_button("Main")
+	set_graph("Main")
+
+
+func set_graph(to):
+	graph = to
 	for node in graph_edit.get_children():
 		if node is GraphNode:
 			node.queue_free()
 	graph_edit.clear_connections()
-	var store := {}
-	add_nodes(behavior_tree.nodes, store)
-	connect_nodes(behavior_tree.nodes, store)
+	if graph in behavior_tree.graphs:
+		var store := {}
+		print(behavior_tree.graphs)
+		add_nodes(behavior_tree.graphs[graph], store)
+		connect_nodes(behavior_tree.graphs[graph], store)
+	else:
+		behavior_tree.graphs[graph] = []
+
+
+func save_graph() -> void:
+	print("save ", graph)
+	behavior_tree.graphs[graph] = save()
 
 
 func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
 	for node in nodes:
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
+		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
 		new_node.init(node)
 		new_node.selected = select
 		store[node] = new_node
 		add_nodes(node.children, store, select)
+
+
+func _on_BehaviourNode_group_edited(group : String) -> void:
+	add_navigation_button(group)
+	save_graph()
+	set_graph(group)
+
+
+func add_navigation_button(group : String) -> void:
+	var navigation_button := Button.new()
+	navigation_button.text = group
+	navigation_button.connect("pressed", self, "_on_NavigationButton_pressed",
+			[navigation_button])
+	navigation_buttons.add_child(navigation_button)
+
+
+func _on_NavigationButton_pressed(button : Button) -> void:
+	for child_num in navigation_buttons.get_child_count() - button.get_index() - 1:
+		navigation_buttons.get_child(button.get_index() + 1).free()
+	save_graph()
+	set_graph(button.text)
+
+
+func clear_navigation_buttons() -> void:
+	for navigation_button in navigation_buttons.get_children():
+		navigation_button.queue_free()
 
 
 func connect_nodes(nodes : Array, store : Dictionary, from := {}) -> void:
@@ -143,9 +188,11 @@ func show_create_dialog(at_mouse := false) -> void:
 func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 	var new_node : GraphNode = BehaviorNode.instance()
 	graph_edit.add_child(new_node)
+	new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
 	new_node.init({
 		type = type,
-		position = graph_edit.get_local_mouse_position() + graph_edit.scroll_offset
+		position = graph_edit.get_local_mouse_position() +\
+				graph_edit.scroll_offset
 	})
 	if from_node:
 		graph_edit.connect_node(from_node, from_slot, new_node.name, 0)

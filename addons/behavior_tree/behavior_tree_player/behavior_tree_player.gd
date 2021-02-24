@@ -14,7 +14,9 @@ func _ready() -> void:
 	yield(subject, "ready")
 	while true:
 		var states := []
-		for node in behavior_tree.nodes:
-			states.append(Nodes.tick(node, subject))
+		for node in behavior_tree.graphs.values().front():
+			states.append(Nodes.tick(node, subject, behavior_tree))
 		for state in states:
-			yield(state, "completed")
+			if state is GDScriptFunctionState:
+				yield(state, "completed")
+		yield(get_tree(), "idle_frame")

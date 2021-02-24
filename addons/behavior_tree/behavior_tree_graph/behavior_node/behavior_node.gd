@@ -1,6 +1,8 @@
 tool
 extends GraphNode
 
+signal group_edited(group)
+
 var data : Dictionary
 var outputs : int
 
@@ -11,6 +13,7 @@ const Nodes = preload("res://addons/behavior_tree/nodes.gd")
 onready var property_edit : LineEdit = $PropertyEdit
 onready var output_buttons : HBoxContainer = $OutputButtons
 onready var remove_output_button : Button = $OutputButtons/RemoveOutputButton
+onready var edit_button : Button = $EditButton
 
 func init(_data : Dictionary) -> void:
 	data = _data
@@ -18,6 +21,8 @@ func init(_data : Dictionary) -> void:
 	title = type_data.name
 	if type_data.type != NodeType.COMPOSITE:
 		output_buttons.free()
+	if type_data.type != NodeType.GROUP:
+		edit_button.free()
 	if not type_data.get("has_property"):
 		property_edit.free()
 	else:
@@ -37,7 +42,8 @@ func init(_data : Dictionary) -> void:
 		control.rect_min_size.y = 20
 		add_child(control)
 	set_slot(0, type_data.type != NodeType.ROOT, 0, Color.white,
-		type_data.type != NodeType.LEAF, 0, Color.white)
+		type_data.type != NodeType.LEAF and type_data.type != NodeType.GROUP,
+		0, Color.white)
 
 
 func to_dictionary() -> Dictionary:
@@ -71,3 +77,8 @@ func _on_RemoveOutputButton_pressed() -> void:
 
 func _on_close_request() -> void:
 	queue_free()
+
+
+func _on_EditButton_pressed() -> void:
+	if property_edit.text:
+		emit_signal("group_edited", property_edit.text)

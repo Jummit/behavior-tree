@@ -41,7 +41,8 @@ func edit(object : Object) -> void:
 
 func apply_changes() -> void:
 	if editing_player:
-		editing_player.behavior_tree.nodes = behavior_tree_graph_panel.save()
+		behavior_tree_graph_panel.save_graph()
+		editing_player.behavior_tree.remove_unused_graphs()
 
 
 func _on_editor_selection_changed():

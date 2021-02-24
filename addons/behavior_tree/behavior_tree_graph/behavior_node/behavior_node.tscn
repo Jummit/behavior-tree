@@ -19,6 +19,12 @@ slot/1/left_color = Color( 1, 1, 1, 1 )
 slot/1/right_enabled = false
 slot/1/right_type = 0
 slot/1/right_color = Color( 1, 1, 1, 1 )
+slot/2/left_enabled = false
+slot/2/left_type = 0
+slot/2/left_color = Color( 1, 1, 1, 1 )
+slot/2/right_enabled = false
+slot/2/right_type = 0
+slot/2/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -56,6 +62,14 @@ margin_right = 74.0
 margin_bottom = 73.0
 expand_to_text_length = true
 
+[node name="EditButton" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 78.0
+margin_right = 74.0
+margin_bottom = 98.0
+text = "Edit"
+
 [connection signal="close_request" from="." to="." method="_on_close_request"]
 [connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]
 [connection signal="pressed" from="OutputButtons/RemoveOutputButton" to="." method="_on_RemoveOutputButton_pressed"]
+[connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]
