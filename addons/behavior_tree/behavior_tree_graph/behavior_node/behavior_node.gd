@@ -61,6 +61,7 @@ func to_dictionary() -> Dictionary:
 
 func _on_AddOutputButton_pressed() -> void:
 	outputs += 1
+	remove_output_button.disabled = outputs == 1
 	var label := Label.new()
 	label.text = str(outputs) + "."
 	add_child(label)
@@ -73,6 +74,8 @@ func _on_RemoveOutputButton_pressed() -> void:
 	outputs -= 1
 	get_child(outputs).queue_free()
 	remove_output_button.disabled = outputs == 1
+	set_slot(outputs, false, 0, Color.white, false, 0,
+		Color.white)
 
 
 func _on_close_request() -> void:
