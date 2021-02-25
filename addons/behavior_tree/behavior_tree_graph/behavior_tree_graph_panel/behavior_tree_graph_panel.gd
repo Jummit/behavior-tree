@@ -45,7 +45,6 @@ func set_graph(to):
 	graph_edit.clear_connections()
 	if graph in behavior_tree.graphs:
 		var store := {}
-		print(behavior_tree.graphs)
 		add_nodes(behavior_tree.graphs[graph], store)
 		connect_nodes(behavior_tree.graphs[graph], store)
 	else:
@@ -53,7 +52,6 @@ func set_graph(to):
 
 
 func save_graph() -> void:
-	print("save ", graph)
 	behavior_tree.graphs[graph] = save()
 
 
@@ -142,8 +140,10 @@ func _on_CreateBehaviorNodeDialog_hide():
 func _on_GraphEdit_delete_nodes_request() -> void:
 	for node in graph_edit.get_children():
 		if node is GraphNode and node.selected:
+			graph_edit.remove_child(node)
 			node.queue_free()
-	graph_edit.update()
+	save_graph()
+	set_graph(graph)
 
 
 func _on_GraphEdit_duplicate_nodes_request() -> void:
@@ -221,7 +221,7 @@ func save(nodes := graph_edit.get_children()) -> Array:
 	var data := {}
 	var owned := {}
 	for node in nodes:
-		if node is GraphNode:
+		if node is GraphNode and not node.is_queued_for_deletion():
 			data[node.name] = node.to_dictionary()
 	for connection in graph_edit.get_connection_list():
 		if connection.from in data and connection.to in data:
