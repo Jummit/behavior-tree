@@ -110,6 +110,7 @@ func _on_CommentLabel_gui_input(event : InputEvent) -> void:
 			event.button_index == BUTTON_LEFT:
 		comment_label.hide()
 		property_edit.show()
+		property_edit.call_deferred("grab_focus")
 
 
 func _on_BehaviorNode_resize_request(new_minsize : Vector2) -> void:
@@ -117,13 +118,14 @@ func _on_BehaviorNode_resize_request(new_minsize : Vector2) -> void:
 
 
 func _on_PropertyEdit_focus_exited() -> void:
-	if type == NodeType.COMMENT:
-		comment_label.text = property_edit.text
-		comment_label.show()
-		property_edit.hide()
+	exit_comment_edit()
 
 
 func _on_PropertyEdit_text_entered(new_text : String) -> void:
+	exit_comment_edit()
+
+
+func exit_comment_edit() -> void:
 	if type == NodeType.COMMENT:
 		comment_label.text = property_edit.text
 		comment_label.show()
