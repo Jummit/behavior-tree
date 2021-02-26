@@ -198,6 +198,11 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 		graph_edit.connect_node(from_node, from_slot, new_node.name, 0)
 	elif to_node:
 		graph_edit.connect_node(new_node.name, 0, to_node, to_slot)
+	if type == "Comment":
+		new_node.comment_label.hide()
+		new_node.property_edit.show()
+	if new_node.property_edit:
+		new_node.property_edit.call_deferred("grab_focus")
 
 
 func _on_GraphEdit_disconnection_request(from : String, from_slot : int,
