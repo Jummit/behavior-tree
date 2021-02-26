@@ -39,7 +39,7 @@ func init(_data : Dictionary) -> void:
 		property_edit.expand_to_text_length = false
 		comment = true
 		resizable = true
-	offset = data.position
+	offset = data.get("position", Vector2())
 	outputs = data.get("outputs", 2)
 	if type == NodeType.COMPOSITE:
 		for output_num in range(outputs, 0, -1):
