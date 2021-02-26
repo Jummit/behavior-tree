@@ -15,6 +15,10 @@ config/description="Project to showcase the behavior tree plugin."
 run/main_scene="res://main.tscn"
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/return_value_discarded=false
+
 [editor_plugins]
 
 enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg" )
