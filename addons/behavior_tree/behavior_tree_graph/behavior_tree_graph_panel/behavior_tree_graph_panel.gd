@@ -201,9 +201,9 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 		position = graph_edit.get_local_mouse_position() +\
 				graph_edit.scroll_offset
 	})
-	if from_node:
+	if from_node and new_node.is_slot_enabled_left(0):
 		graph_edit.connect_node(from_node, from_slot, new_node.name, 0)
-	elif to_node:
+	elif to_node and new_node.is_slot_enabled_right(0):
 		graph_edit.connect_node(new_node.name, 0, to_node, to_slot)
 	if type == "Comment":
 		new_node.comment_label.hide()
