@@ -43,12 +43,11 @@ func set_graph(to):
 		if node is GraphNode:
 			node.queue_free()
 	graph_edit.clear_connections()
-	if graph in behavior_tree.graphs:
-		var store := {}
-		add_nodes(behavior_tree.graphs[graph], store)
-		connect_nodes(behavior_tree.graphs[graph], store)
-	else:
-		behavior_tree.graphs[graph] = []
+	if not graph in behavior_tree.graphs:
+		behavior_tree.graphs[graph] = [{type = "Root"}]
+	var store := {}
+	add_nodes(behavior_tree.graphs[graph], store)
+	connect_nodes(behavior_tree.graphs[graph], store)
 
 
 func save_graph() -> void:
