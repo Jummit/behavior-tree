@@ -1,6 +1,7 @@
 enum NodeType {
 	ROOT,
 	GROUP,
+	COMMENT,
 	COMPOSITE,
 	DECORATOR,
 	LEAF,
@@ -14,6 +15,11 @@ const NODES := [
 	{
 		name = "Group",
 		type = NodeType.GROUP,
+		has_property = true,
+	},
+	{
+		name = "Comment",
+		type = NodeType.COMMENT,
 		has_property = true,
 	},
 	{

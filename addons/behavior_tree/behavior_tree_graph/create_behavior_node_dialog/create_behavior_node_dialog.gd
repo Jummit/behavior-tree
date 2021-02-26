@@ -25,6 +25,7 @@ func update_list(search_term := "") -> void:
 	var roots := {
 		NodeType.ROOT: root,
 		NodeType.GROUP: root,
+		NodeType.COMMENT: root,
 	}
 	var is_first := true
 	for node in NODES:
