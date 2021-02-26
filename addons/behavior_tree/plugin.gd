@@ -14,6 +14,7 @@ func _enter_tree() -> void:
 			preload("behavior_tree_player/icon.svg"))
 	get_editor_interface().get_base_control().add_child(create_behavior_node_dialog)
 	behavior_tree_graph_panel.create_node_dialog = create_behavior_node_dialog
+	behavior_tree_graph_panel.undo_redo = get_undo_redo()
 	get_editor_interface().get_selection().connect("selection_changed", self, "_on_editor_selection_changed")
 	bottom_panel_button = add_control_to_bottom_panel(behavior_tree_graph_panel, "Behavior Tree")
 	bottom_panel_button.hide()

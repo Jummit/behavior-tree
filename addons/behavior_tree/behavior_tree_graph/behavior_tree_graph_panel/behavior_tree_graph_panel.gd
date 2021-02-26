@@ -8,6 +8,7 @@ var to_slot : int
 var to_node : String
 var from_slot : int
 var from_node : String
+var undo_redo : UndoRedo
 
 var copied := []
 
