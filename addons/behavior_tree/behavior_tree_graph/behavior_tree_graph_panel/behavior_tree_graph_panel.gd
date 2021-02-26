@@ -24,6 +24,7 @@ func _ready() -> void:
 	create_node_button.text = "Add Node..."
 	create_node_button.connect("pressed", self, "_on_CreateNodeButton_pressed")
 	create_node_button.flat = true
+	create_node_button.hint_tooltip = "Open the node creation dialog"
 	graph_edit.get_zoom_hbox().add_child(create_node_button)
 	graph_edit.get_zoom_hbox().move_child(create_node_button, 0)
 	
@@ -214,7 +215,7 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 		new_node.property_edit.show()
 	if at_position:
 		new_node.offset = at_position
-	if new_node.property_edit:
+	if is_instance_valid(new_node.property_edit):
 		new_node.property_edit.call_deferred("grab_focus")
 
 
