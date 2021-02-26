@@ -59,6 +59,8 @@ func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
 		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
+		new_node.connect("group_name_changed", self,
+				"_on_BehaviourNode_group_name_changed")
 		new_node.init(node)
 		new_node.selected = select
 		store[node] = new_node
@@ -69,6 +71,12 @@ func _on_BehaviourNode_group_edited(group : String) -> void:
 	add_navigation_button(group)
 	save_graph()
 	set_graph(group)
+
+
+func _on_BehaviourNode_group_name_changed(from : String, to : String) -> void:
+	if from in behavior_tree.graphs:
+		behavior_tree.graphs[to] = behavior_tree.graphs[from]
+		behavior_tree.graphs.erase(from)
 
 
 func add_navigation_button(group : String) -> void:

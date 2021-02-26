@@ -89,6 +89,7 @@ __meta__ = {
 [connection signal="focus_exited" from="CommentLabel" to="." method="_on_CommentLabel_focus_exited"]
 [connection signal="gui_input" from="CommentLabel" to="." method="_on_CommentLabel_gui_input"]
 [connection signal="focus_exited" from="PropertyEdit" to="." method="_on_PropertyEdit_focus_exited"]
+[connection signal="text_changed" from="PropertyEdit" to="." method="_on_PropertyEdit_text_changed"]
 [connection signal="text_entered" from="PropertyEdit" to="." method="_on_PropertyEdit_text_entered"]
 [connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]
 [connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]

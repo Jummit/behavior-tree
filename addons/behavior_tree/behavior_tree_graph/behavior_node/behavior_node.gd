@@ -1,6 +1,7 @@
 tool
 extends GraphNode
 
+signal group_name_changed(from, to)
 signal group_edited(group)
 
 var data : Dictionary
@@ -12,7 +13,6 @@ const NodeType = preload("res://addons/behavior_tree/nodes.gd").NodeType
 const Nodes = preload("res://addons/behavior_tree/nodes.gd")
 
 onready var property_edit : LineEdit = $PropertyEdit
-#onready var property_edit : TextEdit = $PropertyEdit
 onready var output_buttons : HBoxContainer = $OutputButtons
 onready var remove_output_button : Button = $OutputButtons/RemoveOutputButton
 onready var edit_button : Button = $EditButton
@@ -130,3 +130,9 @@ func exit_comment_edit() -> void:
 		comment_label.text = property_edit.text if property_edit.text else "Click to edit text."
 		comment_label.show()
 		property_edit.hide()
+
+
+func _on_PropertyEdit_text_changed(new_text: String) -> void:
+	if type == NodeType.GROUP:
+		emit_signal("group_name_changed", data.property, new_text)
+		data.property = new_text
