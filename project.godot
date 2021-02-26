@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg", "res://addons/node_referencer/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/behavior_tree/plugin.cfg" )
 
 [importer_defaults]
 
