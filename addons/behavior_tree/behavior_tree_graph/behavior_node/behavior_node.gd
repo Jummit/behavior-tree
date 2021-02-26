@@ -121,12 +121,12 @@ func _on_PropertyEdit_focus_exited() -> void:
 	exit_comment_edit()
 
 
-func _on_PropertyEdit_text_entered(new_text : String) -> void:
+func _on_PropertyEdit_text_entered(_new_text : String) -> void:
 	exit_comment_edit()
 
 
 func exit_comment_edit() -> void:
 	if type == NodeType.COMMENT:
-		comment_label.text = property_edit.text
+		comment_label.text = property_edit.text if property_edit.text else "Click to edit text."
 		comment_label.show()
 		property_edit.hide()
