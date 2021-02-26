@@ -62,5 +62,7 @@ func _on_about_to_show() -> void:
 
 
 func _on_SearchEdit_text_entered(new_text: String) -> void:
+	if not node_list.get_selected():
+		return
 	emit_signal("node_selected", node_list.get_selected().get_metadata(0))
 	hide()
