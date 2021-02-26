@@ -63,7 +63,7 @@ func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
 		new_node.init(node)
 		new_node.selected = select
 		store[node] = new_node
-		add_nodes(node.children, store, select)
+		add_nodes(node.get("children", []), store, select)
 
 
 func _on_BehaviourNode_group_edited(group : String) -> void:
@@ -97,7 +97,7 @@ func connect_nodes(nodes : Array, store : Dictionary, from := {}) -> void:
 		if from:
 			graph_edit.connect_node(store[from].name, node_num,
 					store[nodes[node_num]].name, 0)
-		for child in nodes[node_num].children:
+		for child in nodes[node_num].get("children", []):
 			connect_nodes(nodes[node_num].children, store, nodes[node_num])
 
 
