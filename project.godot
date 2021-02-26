@@ -13,7 +13,7 @@ config_version=4
 config/name="Behavior Tree Demo"
 config/description="Project to showcase the behavior tree plugin."
 run/main_scene="res://main.tscn"
-config/icon="res://icon.png"
+config/icon="res://icon.svg"
 
 [editor_plugins]
 
