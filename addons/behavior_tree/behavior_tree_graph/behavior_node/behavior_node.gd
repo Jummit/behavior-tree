@@ -33,7 +33,7 @@ func init(_data : Dictionary) -> void:
 	else:
 		property_edit.hide()
 		comment_label.text = data.get("property", "")
-		rect_size = data.get("size", Vector2())
+		set_deferred("rect_size", data.get("size", Vector2()))
 		comment = true
 		resizable = true
 	offset = data.position
@@ -47,13 +47,14 @@ func init(_data : Dictionary) -> void:
 			set_slot(output_num - 1, output_num == 1, 0, Color.white, true, 0,
 				Color.white)
 	if not get_child_count():
-		var control := Control.new()
+		var control := Label.new()
 		control.rect_min_size.y = 20
 		add_child(control)
 	if type_data.type != NodeType.COMMENT:
 		set_slot(0, type_data.type != NodeType.ROOT, 0, Color.white,
 			type_data.type != NodeType.LEAF and type_data.type != NodeType.GROUP,
 			0, Color.white)
+	set_deferred("rect_size", Vector2())
 
 
 func to_dictionary() -> Dictionary:
@@ -84,10 +85,11 @@ func _on_AddOutputButton_pressed() -> void:
 
 func _on_RemoveOutputButton_pressed() -> void:
 	outputs -= 1
-	get_child(outputs).queue_free()
+	get_child(outputs).free()
 	remove_output_button.disabled = outputs == 1
 	set_slot(outputs, false, 0, Color.white, false, 0,
 		Color.white)
+	rect_size = Vector2()
 
 
 func _on_close_request() -> void:
