@@ -5,12 +5,14 @@ signal group_edited(group)
 
 var data : Dictionary
 var outputs : int
+var type : int
 
 const NODES = preload("res://addons/behavior_tree/nodes.gd").NODES
 const NodeType = preload("res://addons/behavior_tree/nodes.gd").NodeType
 const Nodes = preload("res://addons/behavior_tree/nodes.gd")
 
 onready var property_edit : LineEdit = $PropertyEdit
+#onready var property_edit : TextEdit = $PropertyEdit
 onready var output_buttons : HBoxContainer = $OutputButtons
 onready var remove_output_button : Button = $OutputButtons/RemoveOutputButton
 onready var edit_button : Button = $EditButton
@@ -19,25 +21,27 @@ onready var comment_label : Label = $CommentLabel
 func init(_data : Dictionary) -> void:
 	data = _data
 	var type_data := Nodes.get_type_data(data.type)
+	type = type_data.type
 	title = type_data.name
-	if type_data.type != NodeType.COMPOSITE:
+	if type != NodeType.COMPOSITE:
 		output_buttons.free()
-	if type_data.type != NodeType.GROUP:
+	if type != NodeType.GROUP:
 		edit_button.free()
-	if not type_data.get("has_property"):
+	if not "has_property" in type_data:
 		property_edit.free()
 	else:
 		property_edit.text = data.get("property", "")
-	if type_data.type != NodeType.COMMENT:
+	if type != NodeType.COMMENT:
 		comment_label.free()
 	else:
 		property_edit.hide()
-		comment_label.text = data.get("property", "")
+		comment_label.text = data.get("property", "Click to edit comment")
+		property_edit.expand_to_text_length = false
 		comment = true
 		resizable = true
 	offset = data.position
 	outputs = data.get("outputs", 2)
-	if type_data.type == NodeType.COMPOSITE:
+	if type == NodeType.COMPOSITE:
 		for output_num in range(outputs, 0, -1):
 			var label := Label.new()
 			label.text = str(output_num) + "."
@@ -49,10 +53,10 @@ func init(_data : Dictionary) -> void:
 		var control := Label.new()
 		control.rect_min_size.y = 20
 		add_child(control)
-	if type_data.type != NodeType.COMMENT:
-		set_slot(0, type_data.type != NodeType.ROOT, 0, Color.white,
-			type_data.type != NodeType.LEAF and type_data.type != NodeType.GROUP,
-			0, Color.white)
+	if type != NodeType.COMMENT:
+		set_slot(0, type != NodeType.ROOT, 0, Color.white,
+				type != NodeType.LEAF and type != NodeType.GROUP,
+				0, Color.white)
 	set_deferred("rect_size", data.get("size", Vector2()))
 
 
@@ -62,10 +66,11 @@ func to_dictionary() -> Dictionary:
 		position = offset,
 		children = [],
 	}
-	if Nodes.get_type_data(data.type).type == NodeType.COMPOSITE:
-		data.outputs = outputs
-	if Nodes.get_type_data(data.type).type == NodeType.COMMENT:
-		data.size = rect_size
+	match type:
+		NodeType.COMPOSITE:
+			data.outputs = outputs
+		NodeType.COMMENT:
+			data.size = rect_size
 	if is_instance_valid(property_edit):
 		data.property = property_edit.text
 	return data
@@ -107,11 +112,19 @@ func _on_CommentLabel_gui_input(event : InputEvent) -> void:
 		property_edit.show()
 
 
-func _on_CommentLabel_focus_exited() -> void:
-	comment_label.text = property_edit.text
-	comment_label.show()
-	property_edit.hide()
-
-
 func _on_BehaviorNode_resize_request(new_minsize : Vector2) -> void:
 	rect_size = new_minsize
+
+
+func _on_PropertyEdit_focus_exited() -> void:
+	if type == NodeType.COMMENT:
+		comment_label.text = property_edit.text
+		comment_label.show()
+		property_edit.hide()
+
+
+func _on_PropertyEdit_text_entered(new_text : String) -> void:
+	if type == NodeType.COMMENT:
+		comment_label.text = property_edit.text
+		comment_label.show()
+		property_edit.hide()

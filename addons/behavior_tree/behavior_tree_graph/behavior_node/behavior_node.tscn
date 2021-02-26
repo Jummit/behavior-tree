@@ -36,11 +36,34 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OutputButtons" type="HBoxContainer" parent="."]
+[node name="CommentLabel" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 74.0
-margin_bottom = 44.0
+margin_bottom = 38.0
+mouse_filter = 0
+autowrap = true
+
+[node name="PropertyEdit" type="LineEdit" parent="."]
+margin_left = 16.0
+margin_top = 43.0
+margin_right = 74.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 0, 25 )
+expand_to_text_length = true
+
+[node name="EditButton" type="Button" parent="."]
+margin_left = 16.0
+margin_top = 73.0
+margin_right = 74.0
+margin_bottom = 93.0
+text = "Edit"
+
+[node name="OutputButtons" type="HBoxContainer" parent="."]
+margin_left = 16.0
+margin_top = 98.0
+margin_right = 74.0
+margin_bottom = 118.0
 alignment = 2
 
 [node name="AddOutputButton" type="Button" parent="OutputButtons"]
@@ -61,30 +84,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PropertyEdit" type="LineEdit" parent="."]
-margin_left = 16.0
-margin_top = 49.0
-margin_right = 74.0
-margin_bottom = 73.0
-expand_to_text_length = true
-
-[node name="EditButton" type="Button" parent="."]
-margin_left = 16.0
-margin_top = 78.0
-margin_right = 74.0
-margin_bottom = 98.0
-text = "Edit"
-
-[node name="CommentLabel" type="Label" parent="."]
-margin_left = 16.0
-margin_top = 103.0
-margin_right = 74.0
-margin_bottom = 117.0
-
 [connection signal="close_request" from="." to="." method="_on_close_request"]
 [connection signal="resize_request" from="." to="." method="_on_BehaviorNode_resize_request"]
-[connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]
-[connection signal="pressed" from="OutputButtons/RemoveOutputButton" to="." method="_on_RemoveOutputButton_pressed"]
-[connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]
 [connection signal="focus_exited" from="CommentLabel" to="." method="_on_CommentLabel_focus_exited"]
 [connection signal="gui_input" from="CommentLabel" to="." method="_on_CommentLabel_gui_input"]
+[connection signal="focus_exited" from="PropertyEdit" to="." method="_on_PropertyEdit_focus_exited"]
+[connection signal="text_entered" from="PropertyEdit" to="." method="_on_PropertyEdit_text_entered"]
+[connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]
+[connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]
+[connection signal="pressed" from="OutputButtons/RemoveOutputButton" to="." method="_on_RemoveOutputButton_pressed"]
