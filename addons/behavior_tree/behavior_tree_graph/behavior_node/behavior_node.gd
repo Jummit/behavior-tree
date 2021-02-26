@@ -33,7 +33,6 @@ func init(_data : Dictionary) -> void:
 	else:
 		property_edit.hide()
 		comment_label.text = data.get("property", "")
-		set_deferred("rect_size", data.get("size", Vector2()))
 		comment = true
 		resizable = true
 	offset = data.position
@@ -54,7 +53,7 @@ func init(_data : Dictionary) -> void:
 		set_slot(0, type_data.type != NodeType.ROOT, 0, Color.white,
 			type_data.type != NodeType.LEAF and type_data.type != NodeType.GROUP,
 			0, Color.white)
-	set_deferred("rect_size", Vector2())
+	set_deferred("rect_size", data.get("size", Vector2()))
 
 
 func to_dictionary() -> Dictionary:
