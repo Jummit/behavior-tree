@@ -130,8 +130,6 @@ func _on_GraphEdit_connection_from_empty(to : String, _to_slot : int,
 		release_position : Vector2) -> void:
 	to_node = to
 	to_slot = _to_slot
-	at_position = graph_edit.get_local_mouse_position() +\
-			graph_edit.scroll_offset
 	show_create_dialog(true)
 
 
@@ -139,8 +137,6 @@ func _on_GraphEdit_connection_to_empty(from : String, _from_slot : int,
 		_release_position : Vector2) -> void:
 	from_node = from
 	from_slot = _from_slot
-	at_position = graph_edit.get_local_mouse_position() +\
-			graph_edit.scroll_offset
 	show_create_dialog(true)
 
 
@@ -197,6 +193,8 @@ func show_create_dialog(at_mouse := false) -> void:
 	create_node_dialog.popup()
 	if at_mouse:
 		create_node_dialog.rect_position = get_viewport().get_mouse_position()
+		at_position = graph_edit.get_local_mouse_position() +\
+			graph_edit.scroll_offset
 
 
 func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
