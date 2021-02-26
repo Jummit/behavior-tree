@@ -134,5 +134,5 @@ func exit_comment_edit() -> void:
 
 func _on_PropertyEdit_text_changed(new_text: String) -> void:
 	if type == NodeType.GROUP:
-		emit_signal("group_name_changed", data.property, new_text)
+		emit_signal("group_name_changed", data.get("property", ""), new_text)
 		data.property = new_text

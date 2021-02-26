@@ -8,6 +8,7 @@ var to_slot : int
 var to_node : String
 var from_slot : int
 var from_node : String
+var at_position : Vector2
 var undo_redo : UndoRedo
 
 var copied := []
@@ -128,6 +129,8 @@ func _on_GraphEdit_connection_from_empty(to : String, _to_slot : int,
 		release_position : Vector2) -> void:
 	to_node = to
 	to_slot = _to_slot
+	at_position = graph_edit.get_local_mouse_position() +\
+			graph_edit.scroll_offset
 	show_create_dialog(true)
 
 
@@ -135,6 +138,8 @@ func _on_GraphEdit_connection_to_empty(from : String, _from_slot : int,
 		_release_position : Vector2) -> void:
 	from_node = from
 	from_slot = _from_slot
+	at_position = graph_edit.get_local_mouse_position() +\
+			graph_edit.scroll_offset
 	show_create_dialog(true)
 
 
@@ -199,8 +204,6 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 	new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
 	new_node.init({
 		type = type,
-		position = graph_edit.get_local_mouse_position() +\
-				graph_edit.scroll_offset
 	})
 	if from_node and new_node.is_slot_enabled_left(0):
 		graph_edit.connect_node(from_node, from_slot, new_node.name, 0)
@@ -209,6 +212,8 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 	if type == "Comment":
 		new_node.comment_label.hide()
 		new_node.property_edit.show()
+	if at_position:
+		new_node.offset = at_position
 	if new_node.property_edit:
 		new_node.property_edit.call_deferred("grab_focus")
 
