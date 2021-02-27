@@ -72,12 +72,12 @@ func build() -> int:
 			or resources <= 0 or get_overlapping_areas().front().completed:
 		return FAILED
 	else:
-		yield(get_tree().create_timer(0.5), "timeout")
 		if not get_overlapping_areas().size():
 			return FAILED
 		else:
 			resources -= 1
 			get_overlapping_areas().front().progress += 1
+			yield(get_tree().create_timer(0.5), "timeout")
 			return OK
 
 
