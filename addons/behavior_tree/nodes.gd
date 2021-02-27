@@ -1,3 +1,7 @@
+"""
+Node metadata and tick functions
+"""
+
 enum NodeType {
 	ROOT,
 	GROUP,

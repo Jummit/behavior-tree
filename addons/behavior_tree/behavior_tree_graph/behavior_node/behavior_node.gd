@@ -1,6 +1,12 @@
 tool
 extends GraphNode
 
+"""
+A node in a behavior tree
+
+The layout is configured depending on the node type.
+"""
+
 signal group_name_changed(from, to)
 signal group_edited(group)
 

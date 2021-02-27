@@ -1,6 +1,10 @@
 tool
 extends Resource
 
+"""
+Resource that stores a behavior tree
+"""
+
 export var graphs : Dictionary
 
 const Nodes = preload("res://addons/behavior_tree/nodes.gd")

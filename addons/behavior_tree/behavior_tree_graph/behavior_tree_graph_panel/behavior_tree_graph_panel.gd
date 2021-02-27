@@ -1,6 +1,10 @@
 tool
 extends Control
 
+"""
+The behavior graph panel
+"""
+
 var behavior_tree : BehaviorTree setget set_behavior_tree
 var graph : String setget set_graph
 var create_node_dialog : ConfirmationDialog

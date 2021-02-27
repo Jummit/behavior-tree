@@ -1,6 +1,10 @@
 tool
 extends Node
 
+"""
+Node that is used to play a behavior tree resource in game
+"""
+
 export var root_node := NodePath("../")
 export var behavior_tree : Resource
 

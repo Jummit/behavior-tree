@@ -1,6 +1,10 @@
 tool
 extends ConfirmationDialog
 
+"""
+Dialog to search and choose nodes to add to the graph
+"""
+
 signal node_selected(node)
 
 const NODES = preload("res://addons/behavior_tree/nodes.gd").NODES
