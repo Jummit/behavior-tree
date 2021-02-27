@@ -66,22 +66,6 @@ func init(_data : Dictionary) -> void:
 	set_deferred("rect_size", data.get("size", Vector2()))
 
 
-func to_dictionary() -> Dictionary:
-	data = {
-		type = data.type,
-		position = offset,
-		children = [],
-	}
-	match type:
-		NodeType.COMPOSITE:
-			data.outputs = outputs
-		NodeType.COMMENT:
-			data.size = rect_size
-	if is_instance_valid(property_edit):
-		data.property = property_edit.text
-	return data
-
-
 func _on_AddOutputButton_pressed() -> void:
 	outputs += 1
 	remove_output_button.disabled = outputs == 1
@@ -91,6 +75,7 @@ func _on_AddOutputButton_pressed() -> void:
 	move_child(label, outputs - 1)
 	set_slot(outputs - 1, outputs == 1, 0, Color.white, true, 0,
 		Color.white)
+	data.outputs = outputs
 
 
 func _on_RemoveOutputButton_pressed() -> void:
@@ -100,6 +85,7 @@ func _on_RemoveOutputButton_pressed() -> void:
 	set_slot(outputs, false, 0, Color.white, false, 0,
 		Color.white)
 	rect_size = Vector2()
+	data.outputs = outputs
 
 
 func _on_close_request() -> void:
@@ -121,6 +107,7 @@ func _on_CommentLabel_gui_input(event : InputEvent) -> void:
 
 func _on_BehaviorNode_resize_request(new_minsize : Vector2) -> void:
 	rect_size = new_minsize
+	data.size = rect_size
 
 
 func _on_PropertyEdit_focus_exited() -> void:
@@ -141,4 +128,8 @@ func exit_comment_edit() -> void:
 func _on_PropertyEdit_text_changed(new_text: String) -> void:
 	if type == NodeType.GROUP:
 		emit_signal("group_name_changed", data.get("property", ""), new_text)
-		data.property = new_text
+	data.property = new_text
+
+
+func _on_BehaviorNode_offset_changed() -> void:
+	data.position = offset

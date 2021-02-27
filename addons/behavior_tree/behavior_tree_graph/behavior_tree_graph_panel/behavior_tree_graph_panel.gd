@@ -243,7 +243,7 @@ func save(nodes := graph_edit.get_children()) -> Array:
 	var owned := {}
 	for node in nodes:
 		if node is GraphNode and not node.is_queued_for_deletion():
-			data[node.name] = node.to_dictionary()
+			data[node.name] = node.data
 	for connection in graph_edit.get_connection_list():
 		if connection.from in data and connection.to in data:
 			if data[connection.from].children.size() < connection.from_port + 1:
