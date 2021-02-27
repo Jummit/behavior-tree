@@ -105,7 +105,7 @@ func _on_CommentLabel_gui_input(event : InputEvent) -> void:
 		property_edit.call_deferred("grab_focus")
 
 
-func _on_BehaviorNode_resize_request(new_minsize : Vector2) -> void:
+func _on_resize_request(new_minsize : Vector2) -> void:
 	rect_size = new_minsize
 	data.size = rect_size
 
@@ -131,5 +131,5 @@ func _on_PropertyEdit_text_changed(new_text: String) -> void:
 	data.property = new_text
 
 
-func _on_BehaviorNode_offset_changed() -> void:
+func _on_offset_changed() -> void:
 	data.position = offset
