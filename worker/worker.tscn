@@ -114,22 +114,22 @@ graphs = {
 "children": [ {
 "children": [ {
 "children": [  ],
-"position": Vector2( 300, 0 ),
+"position": Vector2( 260, 0 ),
 "property": "BuildHouse",
 "type": "Group"
 }, {
 "children": [  ],
-"position": Vector2( 300, 100 ),
+"position": Vector2( 260, 100 ),
 "property": "GatherStone",
 "type": "Group"
 }, {
 "children": [  ],
-"position": Vector2( 300, 200 ),
+"position": Vector2( 260, 200 ),
 "property": "WalkRandomly",
 "type": "Group"
 } ],
 "outputs": 3,
-"position": Vector2( 140, 0 ),
+"position": Vector2( 120, 0 ),
 "type": "Selector"
 } ],
 "position": Vector2( 0, 0 ),

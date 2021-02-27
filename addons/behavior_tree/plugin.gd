@@ -46,7 +46,7 @@ func apply_changes() -> void:
 		editing_player.behavior_tree.remove_unused_graphs()
 
 
-func _on_editor_selection_changed():
+func _on_editor_selection_changed() -> void:
 	for node in get_editor_interface().get_selection().get_selected_nodes():
 		if node is BehaviorTreePlayer:
 			return
