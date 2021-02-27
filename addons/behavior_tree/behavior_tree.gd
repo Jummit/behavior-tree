@@ -28,14 +28,18 @@ func get_first_node() -> Dictionary:
 func strip_all_comments() -> void:
 	for graph in graphs.values():
 		strip_comments(graph)
+		print(graph)
 
 
 func strip_comments(nodes : Array) -> void:
+	var to_erase := []
 	for node in nodes:
 		if node.type == "Comment":
-			nodes.erase(node)
+			to_erase.append(node)
 		else:
 			strip_comments(node.get("children", []))
+	for node in to_erase:
+		nodes.erase(node)
 
 
 static func is_group_used(nodes : Array, group : String) -> bool:
