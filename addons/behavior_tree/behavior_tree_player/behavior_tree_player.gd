@@ -12,11 +12,11 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	yield(subject, "ready")
+	behavior_tree.strip_all_comments()
 	while true:
-		var states := []
-		for node in behavior_tree.graphs.values().front():
-			states.append(Nodes.tick(node, subject, behavior_tree))
-		for state in states:
-			if state is GDScriptFunctionState:
-				yield(state, "completed")
-		yield(get_tree(), "idle_frame")
+		var result = Nodes.tick(behavior_tree.get_first_node(), subject,
+				behavior_tree)
+		if result is GDScriptFunctionState:
+			yield(result, "completed")
+		else:
+			yield(get_tree(), "idle_frame")
