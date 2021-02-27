@@ -28,7 +28,6 @@ func get_first_node() -> Dictionary:
 func strip_all_comments() -> void:
 	for graph in graphs.values():
 		strip_comments(graph)
-		print(graph)
 
 
 func strip_comments(nodes : Array) -> void:
