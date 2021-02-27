@@ -42,7 +42,7 @@ func find_nearest_resource(max_range := "") -> int:
 
 
 func target_random_point() -> int:
-	target = Vector2(randf(), randf()) * 100
+	target = Vector2(randf(), randf()) * get_viewport().size
 	return OK
 
 
