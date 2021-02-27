@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://construction_site/construction_site.tscn" type="PackedScene" id=2]
 [ext_resource path="res://resource/resource.tscn" type="PackedScene" id=3]
 [ext_resource path="res://worker/worker.tscn" type="PackedScene" id=4]
 [ext_resource path="res://grass_tile.png" type="Texture" id=5]
 
 [node name="Main" type="YSort"]
-script = ExtResource( 1 )
 
 [node name="Ground" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://construction_site/construction_site.png" type="Texture" id=1]
 [ext_resource path="res://construction_site/construction_site.gd" type="Script" id=2]
-[ext_resource path="res://construction_site/progress bar.svg" type="Texture" id=3]
+[ext_resource path="res://construction_site/progress_bar.svg" type="Texture" id=3]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 3 )

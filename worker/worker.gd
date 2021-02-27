@@ -7,7 +7,6 @@ var target_object : Area2D
 var target : Vector2
 
 const ConstructionSite = preload("res://construction_site/construction_site.gd")
-const GatherResource = preload("res://resource/resource.gd")
 
 onready var tween : Tween = $Tween
 
@@ -17,7 +16,7 @@ func near_resource() -> int:
 
 func gather_resource():
 	if not get_overlapping_areas().size() or\
-			not get_overlapping_areas().front() is GatherResource:
+			not get_overlapping_areas().front().is_in_group("Resources"):
 		return FAILED
 	else:
 		yield(get_tree().create_timer(1.0), "timeout")
