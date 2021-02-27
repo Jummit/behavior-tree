@@ -30,11 +30,12 @@ func gather_resource():
 			return FAILED
 
 
-func find_nearest_resource(max_range := 0.0) -> int:
+func find_nearest_resource(max_range := "") -> int:
 	target_object = get_nearest(get_tree().get_nodes_in_group("Resources"))
 	if not target_object:
 		return FAILED
-	if max_range and target_object.position.distance_to(position) > max_range:
+	if max_range and\
+			target_object.position.distance_to(position) > float(max_range):
 		return FAILED
 	target = target_object.position
 	return OK

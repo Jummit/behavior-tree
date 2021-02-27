@@ -46,32 +46,54 @@ graphs = {
 "type": "Root"
 } ],
 "GatherStone": [ {
-"children": [ {
+"children": [  ],
+"position": Vector2( 260, -60 ),
+"property": "Mine the nearest resources too",
+"size": Vector2( 432, 241 ),
+"type": "Comment"
+}, {
+"children": [  ],
+"position": Vector2( -180, -60 ),
+"property": "Go to the first resource",
+"size": Vector2( 430, 241 ),
+"type": "Comment"
+}, {
 "children": [ {
 "children": [ {
 "children": [  ],
-"position": Vector2( 500, 0 ),
+"position": Vector2( 0, 0 ),
 "property": "find_nearest_resource 30",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 500, 80 ),
-"property": "gather_resource",
+"position": Vector2( 0, 60 ),
+"property": "walk",
+"type": "Function"
+}, {
+"children": [ {
+"children": [ {
+"children": [  ],
+"position": Vector2( 440, 0 ),
+"property": "find_nearest_resource 30",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 500, 160 ),
+"position": Vector2( 440, 60 ),
 "property": "walk",
 "type": "Function"
 } ],
 "outputs": 3,
-"position": Vector2( 340, 0 ),
+"position": Vector2( 280, 0 ),
 "type": "Sequence"
 } ],
-"position": Vector2( 120, 0 ),
+"position": Vector2( 0, 120 ),
 "type": "Repeat Until Failed"
 } ],
-"position": Vector2( 0, 0 ),
+"outputs": 3,
+"position": Vector2( -160, 0 ),
+"type": "Sequence"
+} ],
+"position": Vector2( -300, 0 ),
 "type": "Root"
 } ],
 "Main": [ {
