@@ -17,40 +17,40 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 480, 300 )
 
 [node name="Resource4" parent="." instance=ExtResource( 3 )]
-position = Vector2( 354, 108 )
+position = Vector2( 377, 198 )
 
 [node name="Resource3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 221, 450 )
+position = Vector2( 177, 411 )
 
 [node name="Resource5" parent="." instance=ExtResource( 3 )]
-position = Vector2( 838, 200 )
+position = Vector2( 813, 270 )
 
 [node name="Resource6" parent="." instance=ExtResource( 3 )]
-position = Vector2( 917, 99 )
+position = Vector2( 907, 167 )
 
 [node name="Resource" parent="." instance=ExtResource( 3 )]
 position = Vector2( 99, 203 )
 
 [node name="Resource7" parent="." instance=ExtResource( 3 )]
-position = Vector2( 185, 487 )
+position = Vector2( 197, 579 )
 
 [node name="Resource2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 777, 106 )
+position = Vector2( 745, 186 )
 
 [node name="Resource8" parent="." instance=ExtResource( 3 )]
-position = Vector2( 139, 458 )
+position = Vector2( 81, 524 )
 
 [node name="Resource9" parent="." instance=ExtResource( 3 )]
-position = Vector2( 443, 89 )
+position = Vector2( 467, 155 )
 
 [node name="Resource10" parent="." instance=ExtResource( 3 )]
-position = Vector2( 916, 482 )
+position = Vector2( 910, 510 )
 
 [node name="Resource11" parent="." instance=ExtResource( 3 )]
-position = Vector2( 931, 419 )
+position = Vector2( 831, 571 )
 
 [node name="ConstructionSite" parent="." instance=ExtResource( 2 )]
-position = Vector2( 480.751, 369.812 )
+position = Vector2( 480.751, 496.812 )
 
 [node name="Worker" parent="." instance=ExtResource( 4 )]
 position = Vector2( 767, 422 )

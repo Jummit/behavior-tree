@@ -20,14 +20,23 @@ graphs = {
 "type": "Condition"
 }, {
 "children": [  ],
-"position": Vector2( 280, 80 ),
+"position": Vector2( 280, 60 ),
 "property": "find_nearest_construction_site",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 280, 160 ),
+"position": Vector2( 280, 120 ),
 "property": "walk",
 "type": "Function"
+}, {
+"children": [ {
+"children": [  ],
+"position": Vector2( 420, 180 ),
+"property": "target_object.completed",
+"type": "Condition"
+} ],
+"position": Vector2( 280, 180 ),
+"type": "Inverter"
 }, {
 "children": [ {
 "children": [  ],
@@ -38,7 +47,7 @@ graphs = {
 "position": Vector2( 280, 240 ),
 "type": "Repeat Until Failed"
 } ],
-"outputs": 4,
+"outputs": 5,
 "position": Vector2( 120, 0 ),
 "type": "Sequence"
 } ],
@@ -47,53 +56,58 @@ graphs = {
 } ],
 "GatherStone": [ {
 "children": [  ],
-"position": Vector2( 260, -60 ),
-"property": "Mine the nearest resources too",
-"size": Vector2( 432, 241 ),
-"type": "Comment"
-}, {
-"children": [  ],
-"position": Vector2( -180, -60 ),
+"position": Vector2( 120, -60 ),
 "property": "Go to the first resource",
 "size": Vector2( 430, 241 ),
 "type": "Comment"
 }, {
+"children": [  ],
+"position": Vector2( 560, -60 ),
+"property": "Mine the nearest resources too",
+"size": Vector2( 432, 241 ),
+"type": "Comment"
+}, {
 "children": [ {
 "children": [ {
 "children": [  ],
-"position": Vector2( 0, 0 ),
-"property": "find_nearest_resource 30",
+"position": Vector2( 300, 0 ),
+"property": "find_nearest_resource",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 0, 60 ),
+"position": Vector2( 300, 60 ),
 "property": "walk",
 "type": "Function"
 }, {
 "children": [ {
 "children": [ {
 "children": [  ],
-"position": Vector2( 440, 0 ),
-"property": "find_nearest_resource 30",
+"position": Vector2( 740, 0 ),
+"property": "find_nearest_resource 180",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 440, 60 ),
+"position": Vector2( 740, 60 ),
 "property": "walk",
+"type": "Function"
+}, {
+"children": [  ],
+"position": Vector2( 740, 120 ),
+"property": "gather_resource",
 "type": "Function"
 } ],
 "outputs": 3,
-"position": Vector2( 280, 0 ),
+"position": Vector2( 580, 0 ),
 "type": "Sequence"
 } ],
-"position": Vector2( 0, 120 ),
+"position": Vector2( 300, 120 ),
 "type": "Repeat Until Failed"
 } ],
 "outputs": 3,
-"position": Vector2( -160, 0 ),
+"position": Vector2( 140, 0 ),
 "type": "Sequence"
 } ],
-"position": Vector2( -300, 0 ),
+"position": Vector2( 0, 0 ),
 "type": "Root"
 } ],
 "Main": [ {
@@ -101,12 +115,12 @@ graphs = {
 "children": [ {
 "children": [  ],
 "position": Vector2( 300, 0 ),
-"property": "GatherStone",
+"property": "BuildHouse",
 "type": "Group"
 }, {
 "children": [  ],
 "position": Vector2( 300, 100 ),
-"property": "BuildHouse",
+"property": "GatherStone",
 "type": "Group"
 }, {
 "children": [  ],
@@ -125,17 +139,17 @@ graphs = {
 "children": [ {
 "children": [ {
 "children": [  ],
-"position": Vector2( 320, 0 ),
+"position": Vector2( 300, 0 ),
 "property": "target_random_point",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 320, 80 ),
+"position": Vector2( 300, 60 ),
 "property": "walk",
 "type": "Function"
 }, {
 "children": [  ],
-"position": Vector2( 320, 160 ),
+"position": Vector2( 300, 120 ),
 "property": "2",
 "type": "Wait"
 } ],
@@ -152,10 +166,12 @@ graphs = {
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -61.4489 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -61.4489 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
