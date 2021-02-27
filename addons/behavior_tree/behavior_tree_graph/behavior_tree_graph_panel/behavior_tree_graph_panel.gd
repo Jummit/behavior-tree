@@ -242,7 +242,8 @@ func save(nodes := graph_edit.get_children()) -> Array:
 			data[node.name] = node.to_dictionary()
 	for connection in graph_edit.get_connection_list():
 		if connection.from in data and connection.to in data:
-			data[connection.from].children.resize(connection.from_port + 1)
+			if data[connection.from].children.size() < connection.from_port + 1:
+				data[connection.from].children.resize(connection.from_port + 1)
 			data[connection.from].children[connection.from_port] =\
 					data[connection.to]
 			owned[connection.to] = true
