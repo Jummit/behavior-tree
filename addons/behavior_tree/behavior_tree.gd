@@ -29,9 +29,10 @@ func get_first_node() -> Dictionary:
 	return {}
 
 
-func strip_all_comments() -> void:
+func strip_comments() -> void:
 	for graph in graphs.values():
-		for node in graph:
+		var comments := []
+		for node in graph.duplicate():
 			if node.type == "Comment":
 				graph.erase(node)
 

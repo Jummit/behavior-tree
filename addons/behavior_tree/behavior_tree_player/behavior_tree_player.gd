@@ -16,7 +16,7 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	yield(subject, "ready")
-	behavior_tree.strip_all_comments()
+	behavior_tree.strip_comments()
 	while true:
 		var result = Nodes.tick(behavior_tree.get_first_node(), subject,
 				behavior_tree)
