@@ -14,38 +14,33 @@ graphs = {
 "BuildHouse": [ {
 "children": [ {
 "children": [ {
-"children": [  ],
-"position": Vector2( 280, 0 ),
-"property": "resources > 0",
-"type": "Condition"
-}, {
-"children": [  ],
-"position": Vector2( 280, 60 ),
-"property": "find_nearest_construction_site",
-"type": "Function"
-}, {
-"children": [  ],
-"position": Vector2( 280, 120 ),
-"property": "walk",
-"type": "Function"
-}, {
 "children": [ {
-"children": [  ],
-"position": Vector2( 420, 180 ),
-"property": "target_object.completed",
-"type": "Condition"
-} ],
-"position": Vector2( 280, 180 ),
-"type": "Inverter"
-}, {
-"children": [ {
-"children": [  ],
-"position": Vector2( 500, 240 ),
+"position": Vector2( 540, 160 ),
 "property": "build",
 "type": "Function"
 } ],
-"position": Vector2( 280, 240 ),
+"position": Vector2( 320, 160 ),
 "type": "Repeat Until Failed"
+}, {
+"children": [ {
+"position": Vector2( 460, 80 ),
+"property": "target_object.completed",
+"type": "Condition"
+} ],
+"position": Vector2( 320, 80 ),
+"type": "Inverter"
+}, {
+"position": Vector2( 320, 0 ),
+"property": "walk",
+"type": "Function"
+}, {
+"position": Vector2( 320, -80 ),
+"property": "find_nearest_construction_site",
+"type": "Function"
+}, {
+"position": Vector2( 320, -160 ),
+"property": "resources > 0",
+"type": "Condition"
 } ],
 "outputs": 5,
 "position": Vector2( 120, 0 ),
@@ -55,103 +50,90 @@ graphs = {
 "type": "Root"
 } ],
 "GatherStone": [ {
-"children": [  ],
-"position": Vector2( 120, -60 ),
+"position": Vector2( 320, -120 ),
 "property": "Go to the first resource",
-"size": Vector2( 430, 241 ),
+"size": Vector2( 249, 295 ),
 "type": "Comment"
 }, {
-"children": [  ],
-"position": Vector2( 560, -60 ),
+"position": Vector2( 580, -40 ),
 "property": "Mine the nearest resources too",
-"size": Vector2( 432, 241 ),
+"size": Vector2( 438, 285 ),
 "type": "Comment"
 }, {
 "children": [ {
 "children": [ {
-"children": [  ],
-"position": Vector2( 300, 0 ),
-"property": "find_nearest_resource",
-"type": "Function"
-}, {
-"children": [  ],
-"position": Vector2( 300, 60 ),
-"property": "walk",
-"type": "Function"
-}, {
 "children": [ {
 "children": [ {
-"children": [  ],
-"position": Vector2( 740, 0 ),
-"property": "find_nearest_resource 180",
-"type": "Function"
-}, {
-"children": [  ],
-"position": Vector2( 740, 60 ),
-"property": "walk",
-"type": "Function"
-}, {
-"children": [  ],
-"position": Vector2( 740, 120 ),
+"position": Vector2( 760, 180 ),
 "property": "gather_resource",
 "type": "Function"
+}, {
+"position": Vector2( 760, 100 ),
+"property": "walk",
+"type": "Function"
+}, {
+"position": Vector2( 760, 20 ),
+"property": "find_nearest_resource 180",
+"type": "Function"
 } ],
 "outputs": 3,
-"position": Vector2( 580, 0 ),
+"position": Vector2( 580, 100 ),
 "type": "Sequence"
 } ],
-"position": Vector2( 300, 120 ),
+"position": Vector2( 340, 100 ),
 "type": "Repeat Until Failed"
+}, {
+"position": Vector2( 340, 20 ),
+"property": "walk",
+"type": "Function"
+}, {
+"position": Vector2( 340, -60 ),
+"property": "find_nearest_resource",
+"type": "Function"
 } ],
 "outputs": 3,
-"position": Vector2( 140, 0 ),
+"position": Vector2( 160, 20 ),
 "type": "Sequence"
 } ],
-"position": Vector2( 0, 0 ),
+"position": Vector2( 20, 20 ),
 "type": "Root"
 } ],
 "Main": [ {
 "children": [ {
 "children": [ {
-"children": [  ],
-"position": Vector2( 260, 0 ),
-"property": "BuildHouse",
+"position": Vector2( 300, 100 ),
+"property": "WalkRandomly",
 "type": "Group"
 }, {
-"children": [  ],
-"position": Vector2( 260, 100 ),
+"position": Vector2( 300, 0 ),
 "property": "GatherStone",
 "type": "Group"
 }, {
-"children": [  ],
-"position": Vector2( 260, 200 ),
-"property": "WalkRandomly",
+"position": Vector2( 300, -100 ),
+"property": "BuildHouse",
 "type": "Group"
 } ],
 "outputs": 3,
 "position": Vector2( 120, 0 ),
 "type": "Selector"
 } ],
-"position": Vector2( 0, 0 ),
+"position": Vector2( -20, 0 ),
 "type": "Root"
 } ],
 "WalkRandomly": [ {
 "children": [ {
 "children": [ {
-"children": [  ],
-"position": Vector2( 300, 0 ),
-"property": "target_random_point",
-"type": "Function"
+"position": Vector2( 320, 80 ),
+"property": "2",
+"type": "Wait"
 }, {
-"children": [  ],
-"position": Vector2( 300, 60 ),
+"position": Vector2( 320, 0 ),
 "property": "walk",
 "type": "Function"
 }, {
-"children": [  ],
-"position": Vector2( 300, 120 ),
-"property": "2",
-"type": "Wait"
+"position": Vector2( 320, -80 ),
+"property": "target_random_point",
+"type": "Function"
 } ],
 "outputs": 3,
 "position": Vector2( 140, 0 ),
