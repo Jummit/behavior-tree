@@ -148,7 +148,11 @@ func tick_randomizer(subject : Node, data : Dictionary, tree : Resource) -> int:
 func tick_condition(subject : Node, data : Dictionary, tree : Resource) -> int:
 	var expression := Expression.new()
 	expression.parse(data.property)
-	return OK if expression.execute([], subject) else FAILED
+	var result = expression.execute([], subject)
+	if expression.has_execute_failed():
+		push_error("Expression '%s' failed with error '%s' " % 
+				[data.property, expression.get_error_text()])
+	return OK if result else FAILED
 
 
 func tick_function(subject : Node, data : Dictionary, tree : Resource) -> int:
