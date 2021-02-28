@@ -212,7 +212,7 @@ func _on_GraphEdit_copy_nodes_request() -> void:
 		node.position -= min_pos
 
 class YSorter:
-	func _sort(a : Dictionary, b : Dictionary) -> bool:
+	static func _sort(a : Dictionary, b : Dictionary) -> bool:
 		return a.position.y > b.position.y
 
 func save(nodes := graph_edit.get_children()) -> Array:
