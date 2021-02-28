@@ -23,7 +23,7 @@ To add a behavior tree to a node, enable the plugin and add a `BehaviourTreePlay
 
 ### Composites
 
-Composites execute a variable amount of branches in different ways. The amount can be increased and decreased with the `+` and `-` buttons.
+Composites execute a variable amount of branches in different ways. The order of execution is calculated by the position of the nodes. They are executed from top to bottom.
 
 |Node|Description|
 |-|-|
