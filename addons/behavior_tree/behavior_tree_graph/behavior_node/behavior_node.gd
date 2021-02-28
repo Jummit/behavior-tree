@@ -54,6 +54,14 @@ func init(_data : Dictionary) -> void:
 	set_deferred("rect_size", data.get("size", Vector2()))
 
 
+func exit_comment_edit() -> void:
+	if type == NodeType.COMMENT:
+		comment_label.text = property_edit.text if property_edit.text else\
+				"Click to edit text."
+		comment_label.show()
+		property_edit.hide()
+
+
 func _on_EditButton_pressed() -> void:
 	if property_edit.text:
 		emit_signal("group_edited", property_edit.text)
@@ -73,13 +81,6 @@ func _on_PropertyEdit_focus_exited() -> void:
 
 func _on_PropertyEdit_text_entered(_new_text : String) -> void:
 	exit_comment_edit()
-
-
-func exit_comment_edit() -> void:
-	if type == NodeType.COMMENT:
-		comment_label.text = property_edit.text if property_edit.text else "Click to edit text."
-		comment_label.show()
-		property_edit.hide()
 
 
 func _on_PropertyEdit_text_changed(new_text: String) -> void:
