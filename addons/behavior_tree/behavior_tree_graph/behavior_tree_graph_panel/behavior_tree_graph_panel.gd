@@ -63,6 +63,12 @@ func add_nodes(nodes : Array, select := false, offset := Vector2()) -> void:
 	for node in BehaviorTree.get_flat_nodes(nodes):
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
+		new_node.connect("close_request", self,
+				"_on_BehaviourNode_close_request", [new_node])
+		new_node.connect("offset_changed", self,
+				"_on_BehaviourNode_offset_changed", [new_node])
+		new_node.connect("resize_request", self,
+				"_on_BehaviourNode_resize_request", [new_node])
 		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
 		new_node.connect("group_name_changed", self,
 				"_on_BehaviourNode_group_name_changed")
@@ -73,6 +79,21 @@ func add_nodes(nodes : Array, select := false, offset := Vector2()) -> void:
 	for node in BehaviorTree.get_flat_nodes(nodes):
 		for child in node.get("children", []):
 			graph_edit.connect_node(graph_nodes[node], 0, graph_nodes[child], 0)
+
+
+func _on_BehaviourNode_close_request(node : GraphNode) -> void:
+	node.queue_free()
+	save_graph()
+	set_graph(graph)
+
+
+func _on_BehaviourNode_offset_changed(node : GraphNode) -> void:
+	node.data.position = node.offset
+
+
+func _on_BehaviourNode_resize_request(new_minsize : Vector2, node : GraphNode) -> void:
+	node.rect_size = new_minsize
+	node.data.size = new_minsize
 
 
 func _on_BehaviourNode_group_edited(group : String) -> void:

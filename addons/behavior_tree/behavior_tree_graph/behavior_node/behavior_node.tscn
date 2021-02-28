@@ -54,9 +54,6 @@ margin_bottom = 93.0
 hint_tooltip = "Edit the group in the editor"
 text = "Edit"
 
-[connection signal="close_request" from="." to="." method="_on_close_request"]
-[connection signal="offset_changed" from="." to="." method="_on_offset_changed"]
-[connection signal="resize_request" from="." to="." method="_on_resize_request"]
 [connection signal="focus_exited" from="CommentLabel" to="." method="_on_CommentLabel_focus_exited"]
 [connection signal="gui_input" from="CommentLabel" to="." method="_on_CommentLabel_gui_input"]
 [connection signal="focus_exited" from="PropertyEdit" to="." method="_on_PropertyEdit_focus_exited"]

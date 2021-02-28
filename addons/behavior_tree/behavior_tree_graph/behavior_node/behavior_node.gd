@@ -54,10 +54,6 @@ func init(_data : Dictionary) -> void:
 	set_deferred("rect_size", data.get("size", Vector2()))
 
 
-func _on_close_request() -> void:
-	queue_free()
-
-
 func _on_EditButton_pressed() -> void:
 	if property_edit.text:
 		emit_signal("group_edited", property_edit.text)
@@ -69,11 +65,6 @@ func _on_CommentLabel_gui_input(event : InputEvent) -> void:
 		comment_label.hide()
 		property_edit.show()
 		property_edit.call_deferred("grab_focus")
-
-
-func _on_resize_request(new_minsize : Vector2) -> void:
-	rect_size = new_minsize
-	data.size = rect_size
 
 
 func _on_PropertyEdit_focus_exited() -> void:
@@ -95,7 +86,3 @@ func _on_PropertyEdit_text_changed(new_text: String) -> void:
 	if type == NodeType.GROUP:
 		emit_signal("group_name_changed", data.get("property", ""), new_text)
 	data.property = new_text
-
-
-func _on_offset_changed() -> void:
-	data.position = offset
