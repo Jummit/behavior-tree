@@ -50,7 +50,6 @@ func set_graph(to):
 	graph_edit.clear_connections()
 	if not graph in behavior_tree.graphs:
 		behavior_tree.graphs[graph] = [{type = "Root"}]
-	print(behavior_tree.graphs[graph])
 	add_nodes(behavior_tree.graphs[graph])
 
 
@@ -62,7 +61,6 @@ func save_graph() -> void:
 func add_nodes(nodes : Array, select := false, offset := Vector2()) -> void:
 	var graph_nodes := {}
 	for node in BehaviorTree.get_flat_nodes(nodes):
-		print(node.type)
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
 		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
