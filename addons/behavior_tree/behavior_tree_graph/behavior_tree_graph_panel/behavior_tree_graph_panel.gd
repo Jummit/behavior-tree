@@ -224,13 +224,15 @@ func save(nodes := graph_edit.get_children()) -> Array:
 	for connection in graph_edit.get_connection_list():
 		if not (connection.from in data and connection.to in data):
 			continue
+		if not "children" in data[connection.from]:
+			data[connection.from].children = []
 		data[connection.from].children.append(data[connection.to])
 		# remove nodes with parent from `data`
 		data.erase(connection.to)
 	# only root nodes are left in `data`
 	var root_nodes := []
 	for node in data.values():
-		root_nodes.append(data)
+		root_nodes.append(node)
 	# sort the nodes by height to make execution order correct
 	for node in BehaviorTree.get_flat_nodes(root_nodes):
 		node.get("children", []).sort_custom(YSorter, "_sort")

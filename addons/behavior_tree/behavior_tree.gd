@@ -39,7 +39,7 @@ func strip_all_comments() -> void:
 static func get_flat_nodes(nodes : Array, array := []) -> Array:
 	for node in nodes:
 		array.append(node)
-		array += get_flat_nodes(node.get("children", []), array)
+		get_flat_nodes(node.get("children", []), array)
 	return array
 
 
