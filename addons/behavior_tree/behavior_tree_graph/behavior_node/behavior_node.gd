@@ -40,6 +40,8 @@ func init(_data : Dictionary) -> void:
 		property_edit.expand_to_text_length = false
 		comment = true
 		resizable = true
+	if type_data.name == "Breakpoint":
+		overlay = GraphNode.OVERLAY_BREAKPOINT
 	offset = data.get("position", Vector2())
 	if not get_child_count():
 		var control := Label.new()
