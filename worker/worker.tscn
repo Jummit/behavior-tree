@@ -14,13 +14,17 @@ graphs = {
 "BuildHouse": [ {
 "children": [ {
 "children": [ {
-"children": [ {
-"position": Vector2( 540, 160 ),
-"property": "build",
+"position": Vector2( 320, -160 ),
+"property": "resources > 0",
+"type": "Condition"
+}, {
+"position": Vector2( 320, -80 ),
+"property": "find_nearest_construction_site",
 "type": "Function"
-} ],
-"position": Vector2( 320, 160 ),
-"type": "Repeat Until Failed"
+}, {
+"position": Vector2( 320, 0 ),
+"property": "walk",
+"type": "Function"
 }, {
 "children": [ {
 "position": Vector2( 460, 80 ),
@@ -30,17 +34,13 @@ graphs = {
 "position": Vector2( 320, 80 ),
 "type": "Inverter"
 }, {
-"position": Vector2( 320, 0 ),
-"property": "walk",
+"children": [ {
+"position": Vector2( 540, 160 ),
+"property": "build",
 "type": "Function"
-}, {
-"position": Vector2( 320, -80 ),
-"property": "find_nearest_construction_site",
-"type": "Function"
-}, {
-"position": Vector2( 320, -160 ),
-"property": "resources > 0",
-"type": "Condition"
+} ],
+"position": Vector2( 320, 160 ),
+"type": "Repeat Until Failed"
 } ],
 "outputs": 5,
 "position": Vector2( 120, 0 ),
@@ -57,60 +57,60 @@ graphs = {
 }, {
 "position": Vector2( 580, -40 ),
 "property": "Mine the nearest resources too",
-"size": Vector2( 438, 285 ),
+"size": Vector2( 455, 285 ),
 "type": "Comment"
 }, {
 "children": [ {
 "children": [ {
-"children": [ {
-"children": [ {
-"position": Vector2( 760, 180 ),
-"property": "gather_resource",
+"position": Vector2( 340, -60 ),
+"property": "find_nearest_resource",
 "type": "Function"
-}, {
-"position": Vector2( 760, 100 ),
-"property": "walk",
-"type": "Function"
-}, {
-"position": Vector2( 760, 20 ),
-"property": "find_nearest_resource 180",
-"type": "Function"
-} ],
-"outputs": 3,
-"position": Vector2( 580, 100 ),
-"type": "Sequence"
-} ],
-"position": Vector2( 340, 100 ),
-"type": "Repeat Until Failed"
 }, {
 "position": Vector2( 340, 20 ),
 "property": "walk",
 "type": "Function"
 }, {
-"position": Vector2( 340, -60 ),
-"property": "find_nearest_resource",
+"children": [ {
+"children": [ {
+"position": Vector2( 780, 20 ),
+"property": "find_nearest_resource 180",
 "type": "Function"
+}, {
+"position": Vector2( 780, 100 ),
+"property": "walk",
+"type": "Function"
+}, {
+"position": Vector2( 780, 180 ),
+"property": "gather_resource",
+"type": "Function"
+} ],
+"outputs": 3,
+"position": Vector2( 600, 100 ),
+"type": "Sequence"
+} ],
+"position": Vector2( 340, 100 ),
+"type": "Repeat Until Failed"
 } ],
 "outputs": 3,
 "position": Vector2( 160, 20 ),
 "type": "Sequence"
 } ],
-"position": Vector2( 20, 20 ),
+"position": Vector2( 40, 20 ),
 "type": "Root"
 } ],
 "Main": [ {
 "children": [ {
 "children": [ {
-"position": Vector2( 300, 100 ),
-"property": "WalkRandomly",
+"position": Vector2( 300, -100 ),
+"property": "BuildHouse",
 "type": "Group"
 }, {
 "position": Vector2( 300, 0 ),
 "property": "GatherStone",
 "type": "Group"
 }, {
-"position": Vector2( 300, -100 ),
-"property": "BuildHouse",
+"position": Vector2( 300, 100 ),
+"property": "WalkRandomly",
 "type": "Group"
 } ],
 "outputs": 3,
@@ -123,17 +123,17 @@ graphs = {
 "WalkRandomly": [ {
 "children": [ {
 "children": [ {
-"position": Vector2( 320, 80 ),
-"property": "2",
-"type": "Wait"
+"position": Vector2( 320, -80 ),
+"property": "target_random_point",
+"type": "Function"
 }, {
 "position": Vector2( 320, 0 ),
 "property": "walk",
 "type": "Function"
 }, {
-"position": Vector2( 320, -80 ),
-"property": "target_random_point",
-"type": "Function"
+"position": Vector2( 320, 80 ),
+"property": "2",
+"type": "Wait"
 } ],
 "outputs": 3,
 "position": Vector2( 140, 0 ),
