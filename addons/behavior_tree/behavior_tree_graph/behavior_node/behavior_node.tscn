@@ -25,12 +25,6 @@ slot/2/left_color = Color( 1, 1, 1, 1 )
 slot/2/right_enabled = false
 slot/2/right_type = 0
 slot/2/right_color = Color( 1, 1, 1, 1 )
-slot/3/left_enabled = false
-slot/3/left_type = 0
-slot/3/left_color = Color( 1, 1, 1, 1 )
-slot/3/right_enabled = false
-slot/3/right_type = 0
-slot/3/right_color = Color( 1, 1, 1, 1 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,33 +54,6 @@ margin_bottom = 93.0
 hint_tooltip = "Edit the group in the editor"
 text = "Edit"
 
-[node name="OutputButtons" type="HBoxContainer" parent="."]
-margin_left = 16.0
-margin_top = 98.0
-margin_right = 74.0
-margin_bottom = 118.0
-alignment = 2
-
-[node name="AddOutputButton" type="Button" parent="OutputButtons"]
-margin_left = 17.0
-margin_right = 37.0
-margin_bottom = 20.0
-hint_tooltip = "Add an output"
-text = "+"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RemoveOutputButton" type="Button" parent="OutputButtons"]
-margin_left = 41.0
-margin_right = 58.0
-margin_bottom = 20.0
-hint_tooltip = "Remove the last output"
-text = "-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="close_request" from="." to="." method="_on_close_request"]
 [connection signal="offset_changed" from="." to="." method="_on_offset_changed"]
 [connection signal="resize_request" from="." to="." method="_on_resize_request"]
@@ -96,5 +63,3 @@ __meta__ = {
 [connection signal="text_changed" from="PropertyEdit" to="." method="_on_PropertyEdit_text_changed"]
 [connection signal="text_entered" from="PropertyEdit" to="." method="_on_PropertyEdit_text_entered"]
 [connection signal="pressed" from="EditButton" to="." method="_on_EditButton_pressed"]
-[connection signal="pressed" from="OutputButtons/AddOutputButton" to="." method="_on_AddOutputButton_pressed"]
-[connection signal="pressed" from="OutputButtons/RemoveOutputButton" to="." method="_on_RemoveOutputButton_pressed"]

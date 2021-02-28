@@ -31,25 +31,21 @@ func get_first_node() -> Dictionary:
 
 func strip_all_comments() -> void:
 	for graph in graphs.values():
-		strip_comments(graph)
+		for node in graph:
+			if node.type == "Comment":
+				graph.erase(node)
 
 
-func strip_comments(nodes : Array) -> void:
-	var to_erase := []
+static func get_flat_nodes(nodes : Array, array := []) -> Array:
 	for node in nodes:
-		if node.type == "Comment":
-			to_erase.append(node)
-		else:
-			strip_comments(node.get("children", []))
-	for node in to_erase:
-		nodes.erase(node)
+		array.append(node)
+		array += get_flat_nodes(node.get("children", []), array)
+	return array
 
 
 static func is_group_used(nodes : Array, group : String) -> bool:
-	for node in nodes:
+	for node in get_flat_nodes(nodes):
 		if Nodes.get_type_data(node.type).type == Nodes.NodeType.GROUP and\
 				node.property == group:
-			return true
-		if is_group_used(node.children, group):
 			return true
 	return false

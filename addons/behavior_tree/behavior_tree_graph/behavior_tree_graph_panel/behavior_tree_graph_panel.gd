@@ -8,9 +8,7 @@ The behavior graph panel
 var behavior_tree : BehaviorTree setget set_behavior_tree
 var graph : String setget set_graph
 var create_node_dialog : ConfirmationDialog
-var to_slot : int
 var to_node : String
-var from_slot : int
 var from_node : String
 var at_position : Vector2
 var undo_redo : UndoRedo
@@ -52,17 +50,16 @@ func set_graph(to):
 	graph_edit.clear_connections()
 	if not graph in behavior_tree.graphs:
 		behavior_tree.graphs[graph] = [{type = "Root"}]
-	var store := {}
-	add_nodes(behavior_tree.graphs[graph], store)
-	connect_nodes(behavior_tree.graphs[graph], store)
+	add_nodes(behavior_tree.graphs[graph])
 
 
 func save_graph() -> void:
 	behavior_tree.graphs[graph] = save()
 
 
-func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
-	for node in nodes:
+func add_nodes(nodes : Array, select := false) -> void:
+	var graph_nodes := {}
+	for node in BehaviorTree.get_flat_nodes(nodes):
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
 		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
@@ -70,8 +67,10 @@ func add_nodes(nodes : Array, store : Dictionary, select := false) -> void:
 				"_on_BehaviourNode_group_name_changed")
 		new_node.init(node)
 		new_node.selected = select
-		store[node] = new_node
-		add_nodes(node.get("children", []), store, select)
+		graph_nodes[node] = new_node.name
+	for node in BehaviorTree.get_flat_nodes(nodes):
+		for child in node.get("children", []):
+			graph_edit.connect_node(graph_nodes[node], 0, graph_nodes[child], 0)
 
 
 func _on_BehaviourNode_group_edited(group : String) -> void:
@@ -106,19 +105,9 @@ func clear_navigation_buttons() -> void:
 		navigation_button.queue_free()
 
 
-func connect_nodes(nodes : Array, store : Dictionary, from := {}) -> void:
-	for node_num in nodes.size():
-		if from:
-			graph_edit.connect_node(store[from].name, node_num,
-					store[nodes[node_num]].name, 0)
-		for child in nodes[node_num].get("children", []):
-			connect_nodes(nodes[node_num].children, store, nodes[node_num])
-
-
 func offset_nodes(nodes : Array, offset : Vector2) -> void:
-	for node in nodes:
+	for node in BehaviorTree.get_flat_nodes(nodes):
 		node.position += offset
-		offset_nodes(node.children, offset)
 
 
 func _on_CreateNodeButton_pressed():
@@ -133,22 +122,18 @@ func _on_GraphEdit_connection_request(from : String, from_slot : int,
 func _on_GraphEdit_connection_from_empty(to : String, _to_slot : int,
 		release_position : Vector2) -> void:
 	to_node = to
-	to_slot = _to_slot
 	show_create_dialog(true)
 
 
 func _on_GraphEdit_connection_to_empty(from : String, _from_slot : int,
 		_release_position : Vector2) -> void:
 	from_node = from
-	from_slot = _from_slot
 	show_create_dialog(true)
 
 
 func _on_CreateBehaviorNodeDialog_hide():
 	from_node = ""
-	from_slot = 1
 	to_node = ""
-	to_slot = -1
 
 
 func _on_GraphEdit_delete_nodes_request() -> void:
@@ -168,10 +153,8 @@ func _on_GraphEdit_duplicate_nodes_request() -> void:
 				to_duplicate.append(node)
 			node.selected = false
 	var nodes := save(to_duplicate)
-	var store := {}
 	offset_nodes(nodes, Vector2.ONE * 30)
-	add_nodes(nodes, store, true)
-	connect_nodes(nodes, store)
+	add_nodes(nodes, true)
 
 
 func _on_GraphEdit_paste_nodes_request() -> void:
@@ -180,13 +163,11 @@ func _on_GraphEdit_paste_nodes_request() -> void:
 	for node in graph_edit.get_children():
 		if node is GraphNode:
 			node.selected = false
-	var store := {}
 	offset_nodes(copied, graph_edit.get_local_mouse_position()\
-				+ graph_edit.scroll_offset)
-	add_nodes(copied, store, true)
-	connect_nodes(copied, store)
+			+ graph_edit.scroll_offset)
+	add_nodes(copied, true)
 	offset_nodes(copied, -(graph_edit.get_local_mouse_position()\
-				+ graph_edit.scroll_offset))
+			+ graph_edit.scroll_offset))
 
 
 func _on_GraphEdit_popup_request(_position : Vector2) -> void:
@@ -209,9 +190,9 @@ func _on_CreateBehaviorNodeDialog_node_selected(type : String) -> void:
 		type = type,
 	})
 	if from_node and new_node.is_slot_enabled_left(0):
-		graph_edit.connect_node(from_node, from_slot, new_node.name, 0)
+		graph_edit.connect_node(from_node, 0, new_node.name, 0)
 	elif to_node and new_node.is_slot_enabled_right(0):
-		graph_edit.connect_node(new_node.name, 0, to_node, to_slot)
+		graph_edit.connect_node(new_node.name, 0, to_node, 0)
 	if type == "Comment":
 		new_node.comment_label.hide()
 		new_node.property_edit.show()
@@ -237,22 +218,27 @@ func _on_GraphEdit_copy_nodes_request() -> void:
 	copied = save(to_copy)
 	offset_nodes(copied, -min_pos)
 
+class YSorter:
+	func _sort(a : Dictionary, b : Dictionary) -> bool:
+		return a.position.y > b.position.y
 
 func save(nodes := graph_edit.get_children()) -> Array:
 	var data := {}
-	var owned := {}
 	for node in nodes:
-		if node is GraphNode and not node.is_queued_for_deletion():
-			data[node.name] = node.data
+		if not node is GraphNode or node.is_queued_for_deletion():
+			continue
+		data[node.name] = node.data
 	for connection in graph_edit.get_connection_list():
-		if connection.from in data and connection.to in data:
-			if data[connection.from].children.size() < connection.from_port + 1:
-				data[connection.from].children.resize(connection.from_port + 1)
-			data[connection.from].children[connection.from_port] =\
-					data[connection.to]
-			owned[connection.to] = true
+		if not (connection.from in data and connection.to in data):
+			continue
+		data[connection.from].children.append(data[connection.to])
+		# remove nodes with parent from `data`
+		data.erase(connection.to)
+	# only root nodes are left in `data`
 	var root_nodes := []
-	for node_name in data:
-		if not node_name in owned:
-			root_nodes.append(data[node_name])
+	for node in data.values():
+		root_nodes.append(data)
+	# sort the nodes by height to make execution order correct
+	for node in BehaviorTree.get_flat_nodes(root_nodes):
+		node.get("children", []).sort_custom(YSorter, "_sort")
 	return root_nodes
