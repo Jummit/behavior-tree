@@ -57,7 +57,7 @@ func save_graph() -> void:
 	behavior_tree.graphs[graph] = save()
 
 
-func add_nodes(nodes : Array, select := false) -> void:
+func add_nodes(nodes : Array, select := false, offset := Vector2()) -> void:
 	var graph_nodes := {}
 	for node in BehaviorTree.get_flat_nodes(nodes):
 		var new_node := BehaviorNode.instance()
@@ -66,6 +66,7 @@ func add_nodes(nodes : Array, select := false) -> void:
 		new_node.connect("group_name_changed", self,
 				"_on_BehaviourNode_group_name_changed")
 		new_node.init(node)
+		new_node.offset += offset
 		new_node.selected = select
 		graph_nodes[node] = new_node.name
 	for node in BehaviorTree.get_flat_nodes(nodes):
@@ -103,11 +104,6 @@ func _on_NavigationButton_pressed(button : Button) -> void:
 func clear_navigation_buttons() -> void:
 	for navigation_button in navigation_buttons.get_children():
 		navigation_button.queue_free()
-
-
-func offset_nodes(nodes : Array, offset : Vector2) -> void:
-	for node in BehaviorTree.get_flat_nodes(nodes):
-		node.position += offset
 
 
 func _on_CreateNodeButton_pressed():
@@ -153,8 +149,7 @@ func _on_GraphEdit_duplicate_nodes_request() -> void:
 				to_duplicate.append(node)
 			node.selected = false
 	var nodes := save(to_duplicate)
-	offset_nodes(nodes, Vector2.ONE * 30)
-	add_nodes(nodes, true)
+	add_nodes(nodes, true, Vector2.ONE * 30)
 
 
 func _on_GraphEdit_paste_nodes_request() -> void:
@@ -163,11 +158,8 @@ func _on_GraphEdit_paste_nodes_request() -> void:
 	for node in graph_edit.get_children():
 		if node is GraphNode:
 			node.selected = false
-	offset_nodes(copied, graph_edit.get_local_mouse_position()\
+	add_nodes(copied, true, graph_edit.get_local_mouse_position()\
 			+ graph_edit.scroll_offset)
-	add_nodes(copied, true)
-	offset_nodes(copied, -(graph_edit.get_local_mouse_position()\
-			+ graph_edit.scroll_offset))
 
 
 func _on_GraphEdit_popup_request(_position : Vector2) -> void:
@@ -216,7 +208,8 @@ func _on_GraphEdit_copy_nodes_request() -> void:
 			if node.offset < min_pos:
 				min_pos = node.offset
 	copied = save(to_copy)
-	offset_nodes(copied, -min_pos)
+	for node in BehaviorTree.get_flat_nodes(copied):
+		node.position -= min_pos
 
 class YSorter:
 	func _sort(a : Dictionary, b : Dictionary) -> bool:
