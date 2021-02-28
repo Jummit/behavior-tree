@@ -50,16 +50,19 @@ func set_graph(to):
 	graph_edit.clear_connections()
 	if not graph in behavior_tree.graphs:
 		behavior_tree.graphs[graph] = [{type = "Root"}]
+	print(behavior_tree.graphs[graph])
 	add_nodes(behavior_tree.graphs[graph])
 
 
 func save_graph() -> void:
 	behavior_tree.graphs[graph] = save()
+	behavior_tree.remove_unused_graphs()
 
 
 func add_nodes(nodes : Array, select := false, offset := Vector2()) -> void:
 	var graph_nodes := {}
 	for node in BehaviorTree.get_flat_nodes(nodes):
+		print(node.type)
 		var new_node := BehaviorNode.instance()
 		graph_edit.add_child(new_node)
 		new_node.connect("group_edited", self, "_on_BehaviourNode_group_edited")
@@ -221,18 +224,18 @@ func save(nodes := graph_edit.get_children()) -> Array:
 		if not node is GraphNode or node.is_queued_for_deletion():
 			continue
 		data[node.name] = node.data
+		# clear children array because it will be repopulated later
+		node.data.erase("children")
+	var root_nodes := data.values()
 	for connection in graph_edit.get_connection_list():
-		if not (connection.from in data and connection.to in data):
+		var from : String = connection.from
+		var to : String = connection.to
+		if not (from in data and to in data):
 			continue
-		if not "children" in data[connection.from]:
-			data[connection.from].children = []
-		data[connection.from].children.append(data[connection.to])
-		# remove nodes with parent from `data`
-		data.erase(connection.to)
-	# only root nodes are left in `data`
-	var root_nodes := []
-	for node in data.values():
-		root_nodes.append(node)
+		if not "children" in data[from]:
+			data[from].children = []
+		data[from].children.append(data[to])
+		root_nodes.erase(data[to])
 	# sort the nodes by height to make execution order correct
 	for node in BehaviorTree.get_flat_nodes(root_nodes):
 		node.get("children", []).sort_custom(YSorter, "_sort")
